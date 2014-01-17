@@ -1,5 +1,5 @@
 {
-  "name": "couchcommerce-frontend-sdk",
+  "name": "sofa-base",
   "version": "0.0.0",
   "description": "Frontend SDK for the CouchCommerce Plattform",
   "main": "index.js",
