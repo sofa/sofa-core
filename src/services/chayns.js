@@ -1,7 +1,8 @@
-'use strict';
-
 angular.module('chayns', [])
     .run(function() {
+
+        'use strict';
+
         var params = {};
 
         if (location.search) {
