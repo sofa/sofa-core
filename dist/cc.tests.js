@@ -506,7 +506,7 @@ test('cumulates same products even after app reload (with variant)', function() 
         price: '2.00',
         variantID: 1,
         optionID: 1
-    }
+    };
 
     var itemAddedCalled = 0;
 
