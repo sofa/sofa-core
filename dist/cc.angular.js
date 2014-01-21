@@ -29,9 +29,12 @@ angular.module("src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html
     "<div class=\"cc-category-tree-view\">\n" +
     "    <ul ng-class=\"{ 'cc-category-tree-view__list--open': item._categoryTreeView.isVisible, \n" +
     "                    'cc-category-tree-view__list--closed': !item._categoryTreeView.isVisible }\" cc-template-code>\n" +
-    "           <li class=\"cc-category-tree-view__list-item-level-{{ item._categoryTreeView.level }}\" \n" +
+    "           <li ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__list-item--active' : 'cc-category-tree-view__list-item'\" \n" +
+    "               class=\"cc-category-tree-view__list-item-level-{{ item._categoryTreeView.level }}\" \n" +
     "               cc-nested-category-item ng-repeat=\"item in items\">\n" +
-    "                <div ng-click=\"doAction(item)\" class=\"cc-category-tree-view__category-entry\">{{item.label}}\n" +
+    "                <div ng-click=\"doAction(item)\" \n" +
+    "                     ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__category-entry--active' : 'cc-category-tree-view__category-entry'\">\n" +
+    "                     {{item.label}}\n" +
     "                    <i ng-class=\"item._categoryTreeView.isVisible ? 'fa-chevron-down' : 'fa-chevron-right'\" \n" +
     "                       class=\"cc-category-tree-view__category-entry-icon fa\"\n" +
     "                       ng-show=\"item.hasChildren\">\n" +
@@ -646,7 +649,6 @@ angular.module('sdk.directives.ccCategoryTreeView')
                         $scope.item = rootCategory;
                         categoryTreeViewRemote.toggleVisibility(rootCategory);
 
-
                         $scope.items.forEach(function(item){
                             categoryTreeViewRemote.setItemLevel(item, 1);
                         });
@@ -661,6 +663,29 @@ angular.module('sdk.directives.ccCategoryTreeView')
         'use strict';
 
         var self = {};
+
+        var activeItem = null;
+
+        self.setActive = function(item){
+            asurePrivateStore(item);
+
+            if (activeItem){
+                activeItem._categoryTreeView.isActive = false;
+            }
+
+            item._categoryTreeView.isActive = true;
+            self.setVisibility(item, true, true);
+
+            activeItem = item;
+        };
+
+        self.setVisibility = function(item, visbility, upwardsRecursive){
+            asurePrivateStore(item);
+            item._categoryTreeView.isVisible = visbility;
+            if (item.parent && upwardsRecursive){
+                self.setVisibility(item.parent, visbility, upwardsRecursive);
+            }
+        };
 
         self.toggleVisibility = function(item){
             asurePrivateStore(item);
@@ -698,6 +723,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
 
                 $scope.doAction = function(item){
                     if (!item.hasChildren){
+                        categoryTreeViewRemote.setActive(item);
                         snapRemote.close();
                         navigationService.navigateToProducts(item.urlId);
                     }

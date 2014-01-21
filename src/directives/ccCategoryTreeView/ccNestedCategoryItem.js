@@ -16,6 +16,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
 
                 $scope.doAction = function(item){
                     if (!item.hasChildren){
+                        categoryTreeViewRemote.setActive(item);
                         snapRemote.close();
                         navigationService.navigateToProducts(item.urlId);
                     }

@@ -9,18 +9,18 @@
 
 .cc-category-tree-view__category-entry{
     position: relative;
+    padding: 10px 0 10px 0;
 }
+
+.cc-category-tree-view__category-entry--active{
+    @extend .cc-category-tree-view__category-entry;
+    background:red;
+}
+
 
 .cc-category-tree-view__category-entry-icon{
     position: absolute;
     right: 3px;
-    top: 3px;
-}
-
-.cc-category-tree-view__list-item-level-1{
-    padding: 10px 0 10px 0;
-}
-
-.cc-category-tree-view__list-item-level-{
-    padding: 10px 0 10px 0;
+    top: 50%;
+    margin-top: -8px;
 }

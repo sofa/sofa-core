@@ -16,7 +16,6 @@ angular.module('sdk.directives.ccCategoryTreeView')
                         $scope.item = rootCategory;
                         categoryTreeViewRemote.toggleVisibility(rootCategory);
 
-
                         $scope.items.forEach(function(item){
                             categoryTreeViewRemote.setItemLevel(item, 1);
                         });
