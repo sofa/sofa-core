@@ -66,5 +66,5 @@ cc.models.BasketItem.prototype.getVariantID = function(){
  * @return {int} Option id.
  */
 cc.models.BasketItem.prototype.getOptionID = function(){
-    return cc.Util.isNumber(this.optionID) ? this.optionID : null;
+    return this.variant ? this.variant.optionID : null;
 };

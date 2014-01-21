@@ -142,7 +142,7 @@ test('cumulates same products', function() {
 
 });
 
-test('cumulates same products even after app reload', function() {
+test('cumulates same products even after app reload (without variant)', function() {
     var basketService = createBasketService();
     basketService.clear();
     var product = new cc.models.Product();
@@ -154,16 +154,51 @@ test('cumulates same products even after app reload', function() {
 
     basketService.on('itemAdded', function(){ itemAddedCalled++; });
 
-    //we intentionally set variant and optionID to null here because
+    //we intentionally set variant to null here because
     //it has been a regression once that null values were not preserved
     //after reloading the app due to a bug in cc.Util.extend
-    var basketItem = basketService.addItem(product, 1, null, null);
+    var basketItem = basketService.addItem(product, 1, null);
 
     //we create a fresh basketService instance to mock the case that the
     //app was reloaded
     var freshBasketService = createBasketService();
     freshBasketService.on('itemAdded', function(){ itemAddedCalled++; });
-    var basketItem2 = freshBasketService.addItem(product, 1, null, null);
+    var basketItem2 = freshBasketService.addItem(product, 1, null);
+    var summary = freshBasketService.getSummary();
+
+    ok(itemAddedCalled === 2, 'raises itemAdded event two times');
+    ok(summary.quantity === 2, 'has a quantity of two');
+    ok(basketItem2.product === product, 'retrieved product from basketItem');
+    ok(basketItem2.quantity === 2, 'has a quantity of two');
+    ok(basketItem2.getTotal() === 4, 'has a total price of four');
+    ok(freshBasketService.getItems().length === 1, 'has only one item');
+});
+
+test('cumulates same products even after app reload (with variant)', function() {
+    var basketService = createBasketService();
+    basketService.clear();
+    var product = new cc.models.Product();
+    product.name = 'Testproduct';
+    product.id = 10;
+    product.price = 2;
+
+    var variant = {
+        price: '2.00',
+        variantID: 1,
+        optionID: 1
+    }
+
+    var itemAddedCalled = 0;
+
+    basketService.on('itemAdded', function(){ itemAddedCalled++; });
+
+    var basketItem = basketService.addItem(product, 1, variant);
+
+    //we create a fresh basketService instance to mock the case that the
+    //app was reloaded
+    var freshBasketService = createBasketService();
+    freshBasketService.on('itemAdded', function(){ itemAddedCalled++; });
+    var basketItem2 = freshBasketService.addItem(product, 1, variant);
     var summary = freshBasketService.getSummary();
 
     ok(itemAddedCalled === 2, 'raises itemAdded event two times');
@@ -200,16 +235,24 @@ test('does not cumulate same products with different variantIds', function() {
     product.name = 'Testproduct';
     product.id = 10;
 
-    var basketItem = basketService.addItem(product, 1, 123);
-    var basketItem2 = basketService.addItem(product, 1, 456);
+    variant1 = {
+        variantID: 123
+    };
+
+    variant2 = {
+        variantID: 46
+    };
+
+    var basketItem = basketService.addItem(product, 1, variant1);
+    var basketItem2 = basketService.addItem(product, 1, variant2);
 
 
     var summary = basketService.getSummary();
 
     ok(summary.quantity === 2, 'has a quantity of two');
 
-    ok(basketService.exists(product, 123), 'product exists');
-    ok(basketService.exists(product, 456), 'product exists');
+    ok(basketService.exists(product, variant1), 'product exists');
+    ok(basketService.exists(product, variant2), 'product exists');
     
     ok(basketItem.product === product, 'retrieved product from basketItem');
     ok(basketItem2.product === product, 'retrieved product from basketItem2');
@@ -276,19 +319,34 @@ test('does not cumulate same products with different optionIds', function() {
     product.name = 'Testproduct';
     product.id = 10;
 
-    var basketItem = basketService.addItem(product, 1, 1, 123);
-    var basketItem2 = basketService.addItem(product, 1, 1, 456);
+    var variant1 = {
+        price: 10.00,
+        variantID: 1,
+        optionID: 1
+    };
+
+    var variant2 = {
+        price: 10.00,
+        variantID: 1,
+        optionID: 2
+    };
+
+    var basketItem = basketService.addItem(product, 1, variant1);
+    var basketItem2 = basketService.addItem(product, 1, variant2);
 
 
     var summary = basketService.getSummary();
 
     ok(summary.quantity === 2, 'has a quantity of two');
 
-    ok(basketService.exists(product, 1, 123), 'product exists');
-    ok(basketService.exists(product, 1, 456), 'product exists');
+    ok(basketService.exists(product, variant1), 'product exists');
+    ok(basketService.exists(product, variant2), 'product exists');
     
     ok(basketItem.product === product, 'retrieved product from basketItem');
+    ok(basketItem.variant === variant1, 'has correct variant set');
+    
     ok(basketItem2.product === product, 'retrieved product from basketItem2');
+    ok(basketItem2.variant === variant2, 'has correct variant set');
 
     ok(basketItem !== basketItem2, 'baksetItems are different');
     ok(basketItem.quantity === 1, 'has a quantity of one');
@@ -367,8 +425,16 @@ test('can clear all items', function() {
     product.name = 'Testproduct';
     product.id = 10;
 
-    var basketItem = basketService.addItem(product, 1, 123);
-    var basketItem2 = basketService.addItem(product, 1, 456);
+    var variant1 = {
+        variantID: 123
+    };
+
+    var variant2 = {
+        variantID: 456
+    };
+
+    var basketItem = basketService.addItem(product, 1, variant1);
+    var basketItem2 = basketService.addItem(product, 1, variant2);
 
     var summary = basketService.getSummary();
 
@@ -378,8 +444,8 @@ test('can clear all items', function() {
     product2.name = 'Testproduct';
     product2.id = 12;
 
-    basketItem = basketService.addItem(product2, 1, 123);
-    basketItem2 = basketService.addItem(product2, 1, 456);
+    basketItem = basketService.addItem(product2, 1, variant1);
+    basketItem2 = basketService.addItem(product2, 1, variant2);
 
     ok(basketService.getItems().length === 4, 'has four items');
 

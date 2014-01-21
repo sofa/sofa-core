@@ -17,12 +17,17 @@ cc.define('cc.BasketService', function(storageService, configService, options){
         storeItemsName = storePrefix + 'items',
         items = sanitizeSavedData(storageService.get(storeItemsName)) || [],
         productIdentityFn = options && cc.Util.isFunction(options.productIdentityFn) ?
-            options.productIdentityFn : function(productA, productAVariant, productAOptionId,
-                                                 productB, productBVariant, productBOptionId){
+            options.productIdentityFn : function(productA, productAVariant,
+                                                 productB, productBVariant){
+
+                var productAVariantID = productAVariant && productAVariant.variantID,
+                    productBVariantID = productBVariant && productBVariant.variantID,
+                    productAOptionID  = productAVariant && productAVariant.optionID,
+                    productBOptionID  = productBVariant && productBVariant.optionID;
 
                 return productA.id === productB.id &&
-                       productAVariant === productBVariant &&
-                       productAOptionId === productBOptionId;
+                       productAVariantID === productBVariantID &&
+                       productAOptionID === productBOptionID;
             };
 
 
@@ -78,13 +83,13 @@ cc.define('cc.BasketService', function(storageService, configService, options){
      *
      * @return {object} The added basket item.
      */
-    self.addItem = function(product, quantity, variant, optionId){
+    self.addItem = function(product, quantity, variant){
 
         if(product.isOutOfStock()){
             throw new Error('product out of stock');
         }
 
-        var basketItem = self.find(createProductPredicate(product, variant, optionId)),
+        var basketItem = self.find(createProductPredicate(product, variant)),
             exists = !cc.Util.isUndefined(basketItem);
 
         if (!exists){
@@ -95,7 +100,6 @@ cc.define('cc.BasketService', function(storageService, configService, options){
         basketItem.product = product;
         basketItem.quantity = basketItem.quantity + quantity;
         basketItem.variant = variant;
-        basketItem.optionId = optionId;
 
         writeToStore();
 
@@ -148,7 +152,7 @@ cc.define('cc.BasketService', function(storageService, configService, options){
      * @return {object} Updated basket item.
      */
     self.increase = function(basketItem, number){
-        return self.addItem(basketItem.product, number, basketItem.variant, basketItem.optionId);
+        return self.addItem(basketItem.product, number, basketItem.variant);
     };
 
     /**
@@ -171,15 +175,15 @@ cc.define('cc.BasketService', function(storageService, configService, options){
      *
      * @return {bool} True whether the product exists or not.
      */
-    self.exists = function(product, variant, optionId){
-        var basketItem = self.find(createProductPredicate(product, variant, optionId));
+    self.exists = function(product, variant){
+        var basketItem = self.find(createProductPredicate(product, variant));
             return !cc.Util.isUndefined(basketItem);
     };
 
     var createProductPredicate = function(productA, productAVariant, productAOptionId){
         return function(item){
-            return productIdentityFn(productA, productAVariant, productAOptionId,
-                                     item.product, item.variant, item.optionId);
+            return productIdentityFn(productA, productAVariant,
+                                     item.product, item.variant);
         };
     };
 
@@ -201,12 +205,11 @@ cc.define('cc.BasketService', function(storageService, configService, options){
      * @return {object} Removed basket item.
      */
     self.removeItem = function(product, quantity, variant, optionId){
-        var basketItem = self.find(createProductPredicate(product, variant, optionId));
+        var basketItem = self.find(createProductPredicate(product, variant));
 
         if (!basketItem){
             throw new Error('Product id: ' + product.id +
                 ' , variant: ' + variant +
-                ', optionId: ' + optionId +
                 '  does not exist in the basket');
         }
 
@@ -265,7 +268,7 @@ cc.define('cc.BasketService', function(storageService, configService, options){
      * @return {object} Updated basket item.
      */
     self.decrease = function(basketItem, number){
-        return self.removeItem(basketItem.product, number, basketItem.variant, basketItem.optionId);
+        return self.removeItem(basketItem.product, number, basketItem.variant);
     };
 
     /**

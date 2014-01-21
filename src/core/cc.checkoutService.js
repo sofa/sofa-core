@@ -44,7 +44,6 @@ cc.define('cc.CheckoutService', function($http, $q, basketService, loggingServic
                 data[item.product.id] = {
                     qty: item.quantity,
                     variantID: item.getVariantID(),
-                    //TODO: the option ID lives on the variant on the sencha version. Check again!
                     optionID: item.getOptionID()
                 };
             });
