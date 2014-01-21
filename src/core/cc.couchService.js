@@ -13,7 +13,8 @@ cc.define('cc.CouchService', function($http, $q, configService){
     var self = {},
         products = {},
         productComparer = new cc.comparer.ProductComparer(),
-        categoryMap = null;
+        categoryMap = null,
+        inFlightCategories = null;
 
     var MEDIA_FOLDER        = configService.get('mediaFolder'),
         MEDIA_IMG_EXTENSION = configService.get('mediaImgExtension'),
@@ -272,17 +273,27 @@ cc.define('cc.CouchService', function($http, $q, configService){
     };
 
     var fetchAllCategories = function(){
-        return $http({
-            method: 'get',
-            url: CATEGORY_JSON
-        })  
-        .then(function(data){
-            var rootCategory = data.data;
-            categoryMap = new cc.util.CategoryMap();
-            categoryMap.rootCategory = rootCategory;
-            augmentCategories(rootCategory);
-            return rootCategory;
-        });
+        //if multiple parties cause fetching all categories at startup
+        //we need to make sure they actually only cause loading the categories
+        //ONCE! Otherwise we end up with multiple instances of our category tree
+        //and hell breaks loose.
+        //TODO: at tests for this!
+
+        if (!inFlightCategories){
+            inFlightCategories = $http({
+                method: 'get',
+                url: CATEGORY_JSON
+            })  
+            .then(function(data){
+                var rootCategory = data.data;
+                categoryMap = new cc.util.CategoryMap();
+                categoryMap.rootCategory = rootCategory;
+                augmentCategories(rootCategory);
+                return rootCategory;
+            });
+        }
+
+        return inFlightCategories;
     };
 
     var augmentCategories = function(categories){
