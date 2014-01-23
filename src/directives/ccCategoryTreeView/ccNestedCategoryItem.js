@@ -7,6 +7,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
             restrict: 'A',
             require: '^ccTemplateCode',
             link: function($scope, $element, attributes, controller){
+                $scope.isRoot = false;
                 if ($scope.item.children){
                     $scope.items = $scope.item.children;
                     var html = $compile(controller.templateCode)($scope);

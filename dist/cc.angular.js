@@ -28,19 +28,20 @@ angular.module("src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html
   $templateCache.put("src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html",
     "<div class=\"cc-category-tree-view\">\n" +
     "    <ul ng-class=\"{ 'cc-category-tree-view__list--open': item._categoryTreeView.isVisible, \n" +
-    "                    'cc-category-tree-view__list--closed': !item._categoryTreeView.isVisible }\" cc-template-code>\n" +
-    "           <li ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__list-item--active' : 'cc-category-tree-view__list-item'\" \n" +
-    "               class=\"cc-category-tree-view__list-item-level-{{ item._categoryTreeView.level }}\" \n" +
-    "               cc-nested-category-item ng-repeat=\"item in items\">\n" +
-    "                <div ng-click=\"doAction(item)\" \n" +
-    "                     ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__category-entry--active' : 'cc-category-tree-view__category-entry'\">\n" +
-    "                     {{item.label}}\n" +
-    "                    <i ng-class=\"item._categoryTreeView.isVisible ? 'fa-chevron-down' : 'fa-chevron-right'\" \n" +
-    "                       class=\"cc-category-tree-view__category-entry-icon fa\"\n" +
-    "                       ng-show=\"item.hasChildren\">\n" +
-    "                   </i>\n" +
-    "                </div>\n" +
-    "           </li>\n" +
+    "                    'cc-category-tree-view__list--closed': !item._categoryTreeView.isVisible,\n" +
+    "                    'cc-category-tree-view__list--root': isRoot,\n" +
+    "                    'cc-category-tree-view__list--child': !isRoot }\" cc-template-code>\n" +
+    "       <li class=\"cc-category-tree-view__list-item\"\n" +
+    "           cc-nested-category-item ng-repeat=\"item in items\">\n" +
+    "            <div ng-click=\"doAction(item)\"\n" +
+    "                 ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__category-entry--active' : 'cc-category-tree-view__category-entry'\">\n" +
+    "                 {{item.label}}\n" +
+    "                <i ng-class=\"item._categoryTreeView.isVisible ? 'fa-chevron-down' : 'fa-chevron-right'\"\n" +
+    "                   class=\"cc-category-tree-view__category-entry-icon fa\"\n" +
+    "                   ng-show=\"item.hasChildren\">\n" +
+    "               </i>\n" +
+    "            </div>\n" +
+    "       </li>\n" +
     "    </ul>\n" +
     "</div>\n" +
     "");
@@ -647,6 +648,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
                     .then(function(rootCategory){
                         $scope.items = rootCategory && rootCategory.children ? rootCategory.children : [];
                         $scope.item = rootCategory;
+                        $scope.isRoot = true;
                         categoryTreeViewRemote.toggleVisibility(rootCategory);
 
                         $scope.items.forEach(function(item){
@@ -714,6 +716,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
             restrict: 'A',
             require: '^ccTemplateCode',
             link: function($scope, $element, attributes, controller){
+                $scope.isRoot = false;
                 if ($scope.item.children){
                     $scope.items = $scope.item.children;
                     var html = $compile(controller.templateCode)($scope);
