@@ -1,13 +1,4 @@
-%cc-category-tree-view__list {
-
-}
-
-.cc-category-tree-view__list--open{
-    @extend %cc-category-tree-view__list;
-}
-
 .cc-category-tree-view__list--closed{
-    @extend %cc-category-tree-view__list;
     display: none;
 }
 
