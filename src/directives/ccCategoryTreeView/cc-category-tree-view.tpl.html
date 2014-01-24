@@ -8,7 +8,7 @@
             <div ng-click="doAction(item)"
                  ng-class="item._categoryTreeView.isActive ? 'cc-category-tree-view__category-entry--active' : 'cc-category-tree-view__category-entry'">
                  {{item.label}}
-                <i ng-class="item._categoryTreeView.isVisible ? 'fa-chevron-down' : 'fa-chevron-right'"
+                <i ng-class="item._categoryTreeView.isVisible ? 'fa-chevron-up' : 'fa-chevron-down'"
                    class="cc-category-tree-view__category-entry-icon fa"
                    ng-show="item.hasChildren">
                </i>

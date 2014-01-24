@@ -34,7 +34,7 @@ angular.module("src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html
     "            <div ng-click=\"doAction(item)\"\n" +
     "                 ng-class=\"item._categoryTreeView.isActive ? 'cc-category-tree-view__category-entry--active' : 'cc-category-tree-view__category-entry'\">\n" +
     "                 {{item.label}}\n" +
-    "                <i ng-class=\"item._categoryTreeView.isVisible ? 'fa-chevron-down' : 'fa-chevron-right'\"\n" +
+    "                <i ng-class=\"item._categoryTreeView.isVisible ? 'fa-chevron-up' : 'fa-chevron-down'\"\n" +
     "                   class=\"cc-category-tree-view__category-entry-icon fa\"\n" +
     "                   ng-show=\"item.hasChildren\">\n" +
     "               </i>\n" +
