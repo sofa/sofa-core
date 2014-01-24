@@ -708,7 +708,7 @@ angular.module('sdk.directives.ccCategoryTreeView')
         return self;
     }]);
 angular.module('sdk.directives.ccCategoryTreeView')
-    .directive('ccNestedCategoryItem', ['$compile', 'categoryTreeViewRemote', 'navigationService', 'snapRemote', function($compile, categoryTreeViewRemote, navigationService, snapRemote) {
+    .directive('ccNestedCategoryItem', ['$compile', 'categoryTreeViewRemote', 'navigationService', 'snapRemote', function($compile, categoryTreeViewRemote, navigationService) {
 
         'use strict';
 
@@ -727,7 +727,6 @@ angular.module('sdk.directives.ccCategoryTreeView')
                 $scope.doAction = function(item){
                     if (!item.hasChildren){
                         categoryTreeViewRemote.setActive(item);
-                        snapRemote.close();
                         navigationService.navigateToProducts(item.urlId);
                     }
                     else{
