@@ -1513,7 +1513,7 @@ cc.define('cc.CouchService', function($http, $q, configService){
  * @description
  * This is a helper service that gives you methods to check for certain contexts
  * on touch devices etc.. It determines the state for the usage of flexbox as well
- * as things like position fixed support.
+ * as things like overflow:scroll support.
  */
 cc.define('cc.DeviceService', function($window){
     var self = {};
@@ -1649,16 +1649,16 @@ cc.define('cc.DeviceService', function($window){
     };
 
     /**
-     * @method flagPositionFixedSupport
+     * @method flagOverflowSupport
      * @memberof cc.DeviceService
      *
      * @description
      * Flags the current document with an SDK specific class depending on given
-     * position fixed support.
+     * overflow:scroll support.
      */
-    self.flagPositionFixedSupport = function(){
+    self.flagOverflowSupport = function(){
         var htmlTag = self.getHtmlTag();
-        htmlTag.className += self.hasPositionFixedSupport() ? ' cc-supports-position-fixed' : ' cc-no-position-fixed';
+        htmlTag.className += self.hasOverflowSupport() ? ' cc-has-overflow-support' : ' cc-has-no-overflow-support';
     };
 
      /**
@@ -1715,29 +1715,18 @@ cc.define('cc.DeviceService', function($window){
     };
 
     /**
-     * @method hasPositionFixedSupport
+     * @method hasOverflowSupport
      * @memberof cc.DeviceService
      *
      * @description
-     * Checks if the current device kinda supports position fixed.
-     * We know, brother sniffing is bad, but for fixed toolbars, 
-     * there is no easy solution. 
+     * Checks if the current device is blacklisted as such with no overflow:scroll support
      *
      * @return {boolean}
      */
-     self.hasPositionFixedSupport = function(){
+     self.hasOverflowSupport = function(){
         if (self.getOs() === 'Android'){
             //versions < 2.3 of Android have poor fixed support
-            if (versionStartsWith('2')){
-                if (versionStartsWith('2.2') || versionStartsWith('2.1') || versionStartsWith('2.0')){
-                    return false;
-                }
-                else{
-                    return true;
-                }
-            }
-            //make all other versions except 1.x return true
-            return !versionStartsWith(1);
+            return !versionStartsWith('2');
         }
         else if (self.getOs() === 'iOS'){
             return  !versionStartsWith('1') &&
