@@ -216,7 +216,6 @@ cc.define('cc.DeviceService', function($window){
      */
      self.hasOverflowSupport = function(){
         if (self.getOs() === 'Android'){
-            //versions < 2.3 of Android have poor fixed support
             return !versionStartsWith('2');
         }
         else if (self.getOs() === 'iOS'){
