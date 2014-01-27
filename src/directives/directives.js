@@ -13,7 +13,6 @@ angular.module('sdk.directives', [
     'sdk.directives.ccElasticViews',
     'sdk.directives.ccLoadingSpinner',
     'sdk.directives.ccInclude',
-    'sdk.directives.ccIosPositionFixedInputFix',
     'sdk.directives.ccIosInputFocusFix',
     'sdk.directives.ccInject',
     'sdk.directives.ccBreadcrumbs',
