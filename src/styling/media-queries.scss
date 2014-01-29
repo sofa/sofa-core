@@ -8,8 +8,12 @@
   @else if $point == tablet {
     @media (min-width: 641px) { @content; }
   }
-  // this will only target tablets
+  // this will only target smart phones
   @else if $point == smaller-than-tablet {
     @media (max-width: 640px) { @content; }
+  }
+  // this will only target huge tablets
+  @else if $point == huge {
+    @media (min-width: 1024px) { @content; }
   }
 }
