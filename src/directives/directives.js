@@ -19,5 +19,6 @@ angular.module('sdk.directives', [
     'sdk.directives.ccTemplateCode',
     'sdk.directives.ccCategoryTreeView',
     'sdk.directives.ccGoUpButton',
-    'sdk.directives.ccGoBackButton'
+    'sdk.directives.ccGoUpControl',
+    'sdk.directives.ccGoBackButton',
 ]);

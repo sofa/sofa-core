@@ -10,6 +10,7 @@ angular.module('sdk.directives.ccGoUpButton')
             templateUrl: 'src/directives/ccGoUpButton/cc-go-up-button.tpl.html',
             scope: {},
             replace: true,
+            transclude: true,
             link: function($scope, element, attributes, controller){
 
                 $scope.goUp = function(){

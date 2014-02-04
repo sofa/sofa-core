@@ -1,6 +1,6 @@
 (function(window, cc, angular, undefined){
 
-angular.module('cc.angular.templates', ['src/directives/ccAddress/ccaddress.tpl.html', 'src/directives/ccBreadcrumbs/cc-breadcrumbs.tpl.html', 'src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html', 'src/directives/ccCheckBox/cccheckbox.tpl.html', 'src/directives/ccElasticViews/elasticViews.tpl.html', 'src/directives/ccFooter/ccfooter.tpl.html', 'src/directives/ccGoBackButton/cc-go-back-button.tpl.html', 'src/directives/ccGoUpButton/cc-go-up-button.tpl.html', 'src/directives/ccLoadingSpinner/ccloadingspinner.tpl.html', 'src/directives/ccSelectBox/ccselectbox.tpl.html', 'src/directives/ccThumbnailBar/ccthumbnailbar.tpl.html', 'src/directives/ccVariantSelector/ccvariantselector.tpl.html', 'src/directives/ccZippy/cczippy.tpl.html']);
+angular.module('cc.angular.templates', ['src/directives/ccAddress/ccaddress.tpl.html', 'src/directives/ccBreadcrumbs/cc-breadcrumbs.tpl.html', 'src/directives/ccCategoryTreeView/cc-category-tree-view.tpl.html', 'src/directives/ccCheckBox/cccheckbox.tpl.html', 'src/directives/ccElasticViews/elasticViews.tpl.html', 'src/directives/ccFooter/ccfooter.tpl.html', 'src/directives/ccGoBackButton/cc-go-back-button.tpl.html', 'src/directives/ccGoUpButton/cc-go-up-button.tpl.html', 'src/directives/ccGoUpControl/cc-go-up-control.tpl.html', 'src/directives/ccLoadingSpinner/ccloadingspinner.tpl.html', 'src/directives/ccSelectBox/ccselectbox.tpl.html', 'src/directives/ccThumbnailBar/ccthumbnailbar.tpl.html', 'src/directives/ccVariantSelector/ccvariantselector.tpl.html', 'src/directives/ccZippy/cczippy.tpl.html']);
 
 angular.module("src/directives/ccAddress/ccaddress.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("src/directives/ccAddress/ccaddress.tpl.html",
@@ -86,12 +86,21 @@ angular.module("src/directives/ccFooter/ccfooter.tpl.html", []).run(["$templateC
 
 angular.module("src/directives/ccGoBackButton/cc-go-back-button.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("src/directives/ccGoBackButton/cc-go-back-button.tpl.html",
-    "<button class=\"cc-go-back-button fa fa-arrow-circle-o-left\" ng-click=\"goBack()\"></button>");
+    "<button class=\"cc-go-back-button\" ng-click=\"goBack()\" ng-transclude></button>");
 }]);
 
 angular.module("src/directives/ccGoUpButton/cc-go-up-button.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("src/directives/ccGoUpButton/cc-go-up-button.tpl.html",
-    "<button class=\"cc-go-up-button fa fa-level-up fa-flip-horizontal\" ng-click=\"goUp()\"></button>");
+    "<button class=\"cc-go-up-button\" ng-click=\"goUp()\" ng-transclude></button>");
+}]);
+
+angular.module("src/directives/ccGoUpControl/cc-go-up-control.tpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("src/directives/ccGoUpControl/cc-go-up-control.tpl.html",
+    "    <cc-go-up-button class=\"cc-go-up-control\" ng-if=\"getParentLabel()\">\n" +
+    "        <i class=\"cc-go-up-control__icon\">\n" +
+    "        </i>\n" +
+    "        <span bo-text=\"getParentLabel()\"></span>\n" +
+    "    </cc-go-up-button>");
 }]);
 
 angular.module("src/directives/ccLoadingSpinner/ccloadingspinner.tpl.html", []).run(["$templateCache", function($templateCache) {
@@ -2816,6 +2825,7 @@ angular.module('sdk.directives.ccGoBackButton')
             templateUrl: 'src/directives/ccGoBackButton/cc-go-back-button.tpl.html',
             scope: {},
             replace: true,
+            transclude: true,
             link: function($scope, element, attributes, controller){
 
                 $scope.goBack = function(){
@@ -2836,10 +2846,39 @@ angular.module('sdk.directives.ccGoUpButton')
             templateUrl: 'src/directives/ccGoUpButton/cc-go-up-button.tpl.html',
             scope: {},
             replace: true,
+            transclude: true,
             link: function($scope, element, attributes, controller){
 
                 $scope.goUp = function(){
                     navigationService.goUp();
+                };
+            }
+        };
+    }]);
+angular.module('sdk.directives.ccGoUpControl', [
+    'src/directives/ccGoUpControl/cc-go-up-control.tpl.html',
+    'sdk.directives.ccGoUpButton'
+]);
+
+angular.module('sdk.directives.ccGoUpControl')
+    .directive('ccGoUpControl', [function() {
+
+        'use strict';
+
+        return {
+            restrict: 'EA',
+            templateUrl: 'src/directives/ccGoUpControl/cc-go-up-control.tpl.html',
+            scope: {
+                category: '=',
+                homeText: '@'
+            },
+            replace: true,
+            transclude: true,
+            link: function($scope, element, attributes){
+
+                $scope.getParentLabel = function () {
+                    return $scope.category.parent && $scope.category.parent.parent ? $scope.category.parent.label :
+                           $scope.category.parent ? $scope.homeText : '';
                 };
             }
         };
@@ -3472,7 +3511,8 @@ angular.module('sdk.directives', [
     'sdk.directives.ccTemplateCode',
     'sdk.directives.ccCategoryTreeView',
     'sdk.directives.ccGoUpButton',
-    'sdk.directives.ccGoBackButton'
+    'sdk.directives.ccGoUpControl',
+    'sdk.directives.ccGoBackButton',
 ]);
 angular.module('sdk.decorators.$rootScope', []);
 

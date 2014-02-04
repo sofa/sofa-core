@@ -10,6 +10,7 @@ angular.module('sdk.directives.ccGoBackButton')
             templateUrl: 'src/directives/ccGoBackButton/cc-go-back-button.tpl.html',
             scope: {},
             replace: true,
+            transclude: true,
             link: function($scope, element, attributes, controller){
 
                 $scope.goBack = function(){
