@@ -23,7 +23,8 @@ angular.module('sdk.decorators.$rootScope', []);
                         var unsubscribe = $delegate.$on(name, listener);
                         this.$on('$destroy', unsubscribe);
                     },
-                    enumerable: false
+                    enumerable: false,
+                    configurable: true
                 });
 
 
