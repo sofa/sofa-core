@@ -22,6 +22,7 @@
  * that for you.
  */
 var cc = window.cc = {};
+var sofa = window.sofa = cc;
 
 (function(){
 
@@ -61,7 +62,7 @@ var cc = window.cc = {};
         var parts = namespaceString.split('.'), parent = cc, i;
 
         //strip redundant leading global
-        if (parts[0] === 'cc') {
+        if (parts[0] === 'cc' || parts[0] === 'sofa') {
             parts = parts.slice(1);
         }
 
