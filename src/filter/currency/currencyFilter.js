@@ -17,7 +17,15 @@ angular
             GBP: {
                 synonyms: ['&pound;', '£', 'GBP'],
                 character: '\u00A3'
+            },
+            CHF: {
+                synonyms: ['CHF'],
+                character: 'CHF'
             }
+        };
+
+        var pointToComma = function(val){
+            return val.replace('.', ',');
         };
 
         var CURRENCY_SIGN = configService.get('currencySign');
@@ -28,17 +36,20 @@ angular
 
             var currencyKey = cc.Util.findKey(currencyMap, function(item){
                                     return item.synonyms.indexOf(currency) > -1; 
-                                }) || 'EUR';
+                                });
 
             var currencyChar = currencyMap[currencyKey].character;
 
             var fixedVal = parseFloat(val).toFixed(2);
 
             if (currencyKey === 'EUR' ){
-                return fixedVal.replace('.', ',') + ' ' + currencyChar;
+                return pointToComma(fixedVal) + ' ' + currencyChar;
             }
             else if (currencyKey === 'USD' || currencyKey === 'GBP'){
                 return currencyChar + ' ' + fixedVal;
+            }
+            else if (currencyKey === 'CHF'){
+                return currencyChar + ' ' + pointToComma(fixedVal);
             }
             else{
                 return fixedVal;
