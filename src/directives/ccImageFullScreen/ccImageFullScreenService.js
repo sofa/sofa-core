@@ -1,7 +1,7 @@
 /* global document*/
 
 angular.module('sdk.directives.ccImageFullScreen')
-       .factory('ccImageFullScreenService', function ($timeout) {
+       .factory('ccImageFullScreenService', ['$timeout', function ($timeout) {
 
     'use strict';
 
@@ -80,4 +80,4 @@ angular.module('sdk.directives.ccImageFullScreen')
     };
 
     return self;
-});
+}]);

@@ -2,7 +2,7 @@
 
 angular
     .module('sdk.directives.ccImageZoom')
-    .directive('ccImageZoom', function (deviceService, $q, $timeout, ccImageZoomDomActors, ccImageZoomMaskService, ccImageZoomLerpAnim, ccImageZoomSettings, ccImageZoomDomUtil) {
+    .directive('ccImageZoom', ['deviceService', '$q', '$timeout', 'ccImageZoomDomActors', 'ccImageZoomMaskService', 'ccImageZoomLerpAnim', 'ccImageZoomSettings', 'ccImageZoomDomUtil', function (deviceService, $q, $timeout, ccImageZoomDomActors, ccImageZoomMaskService, ccImageZoomLerpAnim, ccImageZoomSettings, ccImageZoomDomUtil) {
 
             'use strict';
 
@@ -477,5 +477,5 @@ angular
 
                 }
             };
-        }
+        }]
     );

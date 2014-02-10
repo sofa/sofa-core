@@ -1,7 +1,7 @@
 /* global requestAnimationFrame */
 
 angular.module('sdk.directives.ccImageZoom')
-       .factory('ccImageZoomLerpAnim', function ($q) {
+       .factory('ccImageZoomLerpAnim', ['$q', function ($q) {
 
     'use strict';
 
@@ -83,4 +83,4 @@ angular.module('sdk.directives.ccImageZoom')
     };
 
     return self;
-});
+}]);

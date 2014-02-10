@@ -1,6 +1,6 @@
 angular
     .module('sdk.directives.ccImageFullScreen')
-    .directive('ccImageFullScreen', function (deviceService, ccImageFullScreenService) {
+    .directive('ccImageFullScreen', ['deviceService', 'ccImageFullScreenService', function (deviceService, ccImageFullScreenService) {
 
             'use strict';
 
@@ -17,5 +17,5 @@ angular
                     });
                 }
             };
-        }
+        }]
     );

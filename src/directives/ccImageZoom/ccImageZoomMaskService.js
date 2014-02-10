@@ -1,7 +1,7 @@
 /* global document */
 
 angular.module('sdk.directives.ccImageZoom')
-       .factory('ccImageZoomMaskService', function (ccImageZoomDomActors) {
+       .factory('ccImageZoomMaskService', ['ccImageZoomDomActors', function (ccImageZoomDomActors) {
 
     'use strict';
 
@@ -77,4 +77,4 @@ angular.module('sdk.directives.ccImageZoom')
     };
 
     return self;
-});
+}]);

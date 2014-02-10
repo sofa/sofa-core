@@ -2886,7 +2886,7 @@ angular.module('sdk.directives.ccGoUpControl')
 angular.module('sdk.directives.ccImageFullScreen', []);
 angular
     .module('sdk.directives.ccImageFullScreen')
-    .directive('ccImageFullScreen', function (deviceService, ccImageFullScreenService) {
+    .directive('ccImageFullScreen', ['deviceService', 'ccImageFullScreenService', function (deviceService, ccImageFullScreenService) {
 
             'use strict';
 
@@ -2903,12 +2903,12 @@ angular
                     });
                 }
             };
-        }
+        }]
     );
 /* global document*/
 
 angular.module('sdk.directives.ccImageFullScreen')
-       .factory('ccImageFullScreenService', function ($timeout) {
+       .factory('ccImageFullScreenService', ['$timeout', function ($timeout) {
 
     'use strict';
 
@@ -2987,14 +2987,14 @@ angular.module('sdk.directives.ccImageFullScreen')
     };
 
     return self;
-});
+}]);
 
 angular.module('sdk.directives.ccImageZoom', []);
 /* global document*/
 
 angular
     .module('sdk.directives.ccImageZoom')
-    .directive('ccImageZoom', function (deviceService, $q, $timeout, ccImageZoomDomActors, ccImageZoomMaskService, ccImageZoomLerpAnim, ccImageZoomSettings, ccImageZoomDomUtil) {
+    .directive('ccImageZoom', ['deviceService', '$q', '$timeout', 'ccImageZoomDomActors', 'ccImageZoomMaskService', 'ccImageZoomLerpAnim', 'ccImageZoomSettings', 'ccImageZoomDomUtil', function (deviceService, $q, $timeout, ccImageZoomDomActors, ccImageZoomMaskService, ccImageZoomLerpAnim, ccImageZoomSettings, ccImageZoomDomUtil) {
 
             'use strict';
 
@@ -3469,7 +3469,7 @@ angular
 
                 }
             };
-        }
+        }]
     );
 angular.module('sdk.directives.ccImageZoom')
        .factory('ccImageZoomDomActors', function () {
@@ -3531,7 +3531,7 @@ angular.module('sdk.directives.ccImageZoom')
 /* global requestAnimationFrame */
 
 angular.module('sdk.directives.ccImageZoom')
-       .factory('ccImageZoomLerpAnim', function ($q) {
+       .factory('ccImageZoomLerpAnim', ['$q', function ($q) {
 
     'use strict';
 
@@ -3613,12 +3613,12 @@ angular.module('sdk.directives.ccImageZoom')
     };
 
     return self;
-});
+}]);
 
 /* global document */
 
 angular.module('sdk.directives.ccImageZoom')
-       .factory('ccImageZoomMaskService', function (ccImageZoomDomActors) {
+       .factory('ccImageZoomMaskService', ['ccImageZoomDomActors', function (ccImageZoomDomActors) {
 
     'use strict';
 
@@ -3694,7 +3694,7 @@ angular.module('sdk.directives.ccImageZoom')
     };
 
     return self;
-});
+}]);
 
 
 angular.module('sdk.directives.ccImageZoom')
