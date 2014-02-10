@@ -4410,7 +4410,7 @@ angular
 
         return function(val){
 
-            var currency = CURRENCY_SIGN || '&euro;';
+            var currency = (CURRENCY_SIGN || '&euro;').trim();
 
             var currencyKey = cc.Util.findKey(currencyMap, function(item){
                                     return item.synonyms.indexOf(currency) > -1; 
