@@ -2883,6 +2883,112 @@ angular.module('sdk.directives.ccGoUpControl')
             }
         };
     }]);
+angular.module('sdk.directives.ccImageFullScreen', []);
+angular
+    .module('sdk.directives.ccImageFullScreen')
+    .directive('ccImageFullScreen', function (deviceService, ccImageFullScreenService) {
+
+            'use strict';
+
+            return {
+                restrict: 'A',
+                link: function (scope, $element) {
+
+                    if (!ccImageFullScreenService.enabled) {
+                        return;
+                    }
+
+                    $element.bind('click', function () {
+                        ccImageFullScreenService.toFullScreen($element);
+                    });
+                }
+            };
+        }
+    );
+/* global document*/
+
+angular.module('sdk.directives.ccImageFullScreen')
+       .factory('ccImageFullScreenService', function ($timeout) {
+
+    'use strict';
+
+    var self = {},
+    isAllowedToInteract = true,
+    $fullDiv,
+    appContent;
+
+    var settings = {
+        BODY_WRAPPER_CLASS: 'cc-image-full-screen__hide-marker',
+        SIMPLE_CLASS: 'cc-image-full-screen__image',
+        SIMPLE_CLASS_ACTIVE: 'cc-image-full-screen__image--active',
+        ZOOM_ANIM_DURATION: 500
+    };
+
+    self.enabled = true;
+
+    self.toFullScreen = function ($element) {
+        if (!isAllowedToInteract) {
+            return;
+        }
+
+        var $body = angular.element(document.body);
+
+        appContent = settings.BODY_WRAPPER_CLASS ?
+                     angular.element(document.querySelectorAll('.' + settings.BODY_WRAPPER_CLASS)[0]) :
+                     $body;
+
+        $fullDiv = angular.element(document.createElement('div'));
+        $body.append($fullDiv[0]);
+
+        if (settings.SIMPLE_CLASS) {
+            $fullDiv.addClass(settings.SIMPLE_CLASS);
+        }
+
+        // Set the background-image of the newly created div to the image src
+        $fullDiv.css('background-image', 'url(' + $element.attr('src') + ')');
+
+        // The following triggers a reflow which allows for the transition animation to kick in.
+        $fullDiv[0].offsetWidth; /* jshint ignore:line */
+
+        if (settings.SIMPLE_CLASS_ACTIVE) {
+            $fullDiv.addClass(settings.SIMPLE_CLASS_ACTIVE);
+        }
+
+        $fullDiv.bind('click', self.closeFullScreen);
+        
+        isAllowedToInteract = false;
+
+        $timeout(function () {
+            isAllowedToInteract = true;
+
+            // We need to set the whole underlying thing to display:none
+            // otherwise on some platforms (Android 2 I'm looking at you)
+            // the content behind the fullscreen image will still be visible
+            // and even scrollable which gives a bad experience.
+            appContent.css('display', 'none');
+        }, settings.ZOOM_ANIM_DURATION);
+    };
+
+    self.closeFullScreen = function () {
+        if (!isAllowedToInteract) {
+            return;
+        }
+
+        appContent.css('display', '');
+        if (settings.SIMPLE_CLASS_ACTIVE) {
+            $fullDiv.removeClass(settings.SIMPLE_CLASS_ACTIVE);
+        }
+
+        isAllowedToInteract = false;
+        $timeout(function () {
+            $fullDiv.remove();
+            isAllowedToInteract = true;
+        }, settings.ZOOM_ANIM_DURATION);
+    };
+
+    return self;
+});
+
 angular.module('sdk.directives.ccInclude', []);
 
 angular.module('sdk.directives.ccInclude')
@@ -3513,6 +3619,7 @@ angular.module('sdk.directives', [
     'sdk.directives.ccGoUpButton',
     'sdk.directives.ccGoUpControl',
     'sdk.directives.ccGoBackButton',
+    'sdk.directives.ccImageFullScreen'
 ]);
 angular.module('sdk.decorators.$rootScope', []);
 
