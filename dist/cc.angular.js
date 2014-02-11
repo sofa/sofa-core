@@ -2877,8 +2877,8 @@ angular.module('sdk.directives.ccGoUpControl')
             link: function($scope, element, attributes){
 
                 $scope.getParentLabel = function () {
-                    return $scope.category.parent && $scope.category.parent.parent ? $scope.category.parent.label :
-                           $scope.category.parent ? $scope.homeText : '';
+                    return $scope.category.parent && !$scope.category.parent.isRoot ? $scope.category.parent.label :
+                           $scope.category.parent && $scope.category.parent.isRoot ? $scope.homeText : '';
                 };
             }
         };
