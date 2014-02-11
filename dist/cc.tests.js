@@ -1227,7 +1227,7 @@ test('it should detect no relationship', function() {
 
 
 asyncTest('can get category', function() {
-    expect(1);
+    expect(2);
     var httpService = createHttpService();
 
     var categoryUrlId = 'child1';
@@ -1241,7 +1241,27 @@ asyncTest('can get category', function() {
     couchService
         .getCategory(categoryUrlId)
         .then(function(data){
-            ok(data.label === 'child 1', 'got root category');
+            ok(data.label === 'child 1', 'got correct category');
+            ok(!data.isRoot, 'is no root category');
+            start();
+        });
+});
+
+asyncTest('can get root category', function() {
+    expect(2);
+    var httpService = createHttpService();
+
+    var url =cc.Config.categoryJson;
+
+    httpService.when('get', url).respond(categories);
+
+    var couchService = createCouchService(httpService);
+
+    couchService
+        .getCategory()
+        .then(function(data){
+            ok(data.label === 'root', 'got root category');
+            ok(data.isRoot, 'is  root category');
             start();
         });
 });
