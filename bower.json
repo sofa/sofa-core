@@ -1,0 +1,19 @@
+{
+  "name": "sofa-core",
+  "version": "0.1.0",
+  "homepage": "http://www.sofa.io",
+  "authors": [
+    "Pascal Precht <pascal@couchcommerce.com>"
+  ],
+  "description": "Sofa Web SDK core components.",
+  "main": "dist/sofa.core.js",
+  "ignore": ["*", "!dist"],
+  "keywords": [
+    "sofa",
+    "sofa.io",
+    "web",
+    "sdk",
+    "core"
+  ],
+  "license": "GPL"
+}

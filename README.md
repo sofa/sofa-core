@@ -1,52 +1,20 @@
-# How is this repository organized?
+# Sofa Core [![Build Status](https://travis-ci.org/sofa/sofa-core.png?branch=master)](https://travis-ci.org/sofa/sofa-core)
 
-Currently we maintain both the upcoming SDK as well as an app implementation which is written on top of the SDK in this repository.
-All SDK related files are located within the `sdk` directory and it's subdirectories.
+> Sofa Web SDK Core Components
 
-The app is located within the `app` directory and it's subdirectories.
+This is the Sofa Core component. This component is actually more like a bundle,
+that gives you core functionalities on which other sofa components depend on.
 
-#What do I need to get the app running?
+## Installation
 
-Prerequisites:
+Via npm:
 
-1. You must have `compass` installed
- 
-2. You must have `node.js` installed
+```sh
+$ npm install sofa-core
+```
 
-3. You must have the `grunt-cli` installed
+Via Bower:
 
-Then follow this process:
-
-1. Checkout the repository
-
-2. Navigate to `app` on the console
-
-3. Run `grunt`
-
-4. Open another console tab and navigate to `sdk``
-
-5. Run `grunt`
-
-6. Open the `app/dist/index.html` in your browser
-
-#What do I need to work on the SDK?
-
-Prerequisites:
-
-1. You must have `node.js` installed
-
-2. You must have the `grunt-cli` installed
-
-3. Navigate to `sdk` on the console
-
-4. Run `grunt`
-
-#Further tips
-
-grunt will keep running in both terminal sessions. Keep it running, it does all the heavy
-lifting behind the scenes.
-
-#Contribute
-
-We'd love you to contribute. Please make sure to read the [contribute guide line](https://github.com/couchcommerce/frontend-spike/wiki/Contribute)
-
+```sh
+$ bower install sofa-core
+```
