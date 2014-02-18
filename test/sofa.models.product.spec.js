@@ -26,14 +26,6 @@ describe('sofa.core', function () {
             expect(product.getAllImages).toBeDefined();
         });
 
-        it('should have a method hasMultipleImages', function () {
-            expect(product.hasMultipleImages).toBeDefined();
-        });
-
-        it('should have a method getBasePriceInfo', function () {
-            expect(product.getBasePriceInfo).toBeDefined();
-        });
-
         it('should have a method hasOldPrice', function () {
             expect(product.hasOldPrice).toBeDefined();
         });
@@ -48,6 +40,58 @@ describe('sofa.core', function () {
 
         it('should have a method areAllVariantsOutOfStock', function () {
             expect(product.areAllVariantsOutOfStock).toBeDefined();
+        });
+
+        describe('sofa.models.Product#hasBasePrice', function () {
+            it('should return true', function () {
+                product.custom1 = 1;
+                expect(product.hasBasePrice()).toBe(true);
+            });
+
+            it('should return false', function () {
+                product.custom1 = 0;
+                expect(product.hasBasePrice()).toBe(false);
+
+                delete product.custom1;
+                expect(product.hasBasePrice()).toBe(false);
+            });
+        });
+
+        describe('sofa.models.Product#getBasePriceStr', function () {
+
+            it('should return 10.00', function () {
+                product.custom1 = 10;
+                expect(product.getBasePriceStr()).toBe('10.00');
+            });
+        });
+
+        describe('sofa.models.Product#hasUnit', function () {
+            it('should return true', function () {
+                product.custom3 = 'Kg';
+                expect(product.hasUnit()).toBe(true);
+            });
+
+            it('should return true', function () {
+                product.custom3 = '';
+                expect(product.hasUnit()).toBe(false);
+                delete product.custom3;
+                expect(product.hasUnit()).toBe(false);
+            });
+
+            it('should return false', function () {
+                product.custom1 = 0;
+                expect(product.hasBasePrice()).toBe(false);
+
+                delete product.custom1;
+                expect(product.hasBasePrice()).toBe(false);
+            });
+        });
+
+        describe('sofa.models.Product#getUnit', function () {
+            it('should return "Kg"', function () {
+                product.custom3 = 'Kg';
+                expect(product.getUnit()).toBe('Kg');
+            });
         });
 
         describe('sofa.models.Product#getImage', function () {
@@ -83,17 +127,6 @@ describe('sofa.core', function () {
             it('should return a boolean', function () {
                 product.images = [];
                 expect(typeof product.hasMultipleImages()).toBe('boolean');
-            });
-        });
-
-        describe('sofa.models.Product#getBasePriceInfo', function () {
-
-            it('should be a function', function () {
-                expect(typeof product.getBasePriceInfo).toBe('function');
-            });
-
-            it('should return a string', function () {
-                expect(typeof product.getBasePriceInfo()).toBe('string');
             });
         });
 

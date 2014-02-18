@@ -80,12 +80,12 @@ sofa.Util = {
      * @memberof sofa.Util
      *
      * @description
-     * Transformes a given value to a fixed value by a given precision.
+     * Transformes a given value to a string with a fixed value by a given precision.
      *
      * @param {(number|float)} value Value to fix.
      * @param {number} precision Precision.
      *
-     * @return {number} Transformed fixed value.
+     * @return {String} Transformed fixed value.
      */
     toFixed: function (value, precision) {
 

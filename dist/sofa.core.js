@@ -434,29 +434,55 @@ sofa.models.Product.prototype.hasMultipleImages = function () {
 };
 
 /**
- * @method getBasePriceInfo
+ * @method hasBasePrice
  * @memberof sofa.models.Product
  *
  * @description
- * Returns some additional information about the product.
- * TODO: This is pure shit. I need to talk to Felix got get that clean
- * It's only in here to keep some German clients happy that rely on it.
- * We need to make it more flexibile & localizable
+ * Returns true if a product has a base price.
+ *
+ * @return {boolean}
  */
-sofa.models.Product.prototype.getBasePriceInfo = function () {
-    if (this.custom1 > 0) {
-        if (this.custom3 === 'kg') {
-            return 'entspricht ' + sofa.Util.toFixed(this.custom1, 2) + ' € pro 1 Kilogramm (kg)';
-        } else if (this.custom3 === 'St') {
-            return 'entpricht ' + sofa.Util.toFixed(this.custom1, 2) + ' € pro 1 Stück (St)';
-        } else if (this.custom3 === 'L') {
-            return 'entpricht ' + sofa.Util.toFixed(this.custom1, 2) + ' € pro 1 Liter (l)';
-        } else if (sofa.Util.isString(this.custom3) && this.custom3.length > 0) {
-            return 'entpricht ' + sofa.Util.toFixed(this.custom1, 2) + ' € pro ' + this.custom3;
-        }
-    }
+sofa.models.Product.prototype.hasBasePrice = function () {
+    return this.custom1 > 0;
+};
 
-    return '';
+/**
+ * @method getBasePrice
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the base price per unit
+ *
+ * @return {Number}
+ */
+sofa.models.Product.prototype.getBasePriceStr = function () {
+    return sofa.Util.toFixed(this.custom1, 2);
+};
+
+/**
+ * @method hasUnit
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns true if a product has unit defined
+ *
+ * @return {boolean}
+ */
+sofa.models.Product.prototype.hasUnit = function () {
+    return sofa.Util.isString(this.custom3) && this.custom3.length > 0;
+};
+
+/**
+ * @method getUnit
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the unit of the product
+ *
+ * @return {String}
+ */
+sofa.models.Product.prototype.getUnit = function () {
+    return this.custom3;
 };
 
 /**
@@ -1063,12 +1089,12 @@ sofa.Util = {
      * @memberof sofa.Util
      *
      * @description
-     * Transformes a given value to a fixed value by a given precision.
+     * Transformes a given value to a string with a fixed value by a given precision.
      *
      * @param {(number|float)} value Value to fix.
      * @param {number} precision Precision.
      *
-     * @return {number} Transformed fixed value.
+     * @return {String} Transformed fixed value.
      */
     toFixed: function (value, precision) {
 
