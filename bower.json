@@ -7,6 +7,9 @@
   ],
   "description": "Sofa Web SDK core components.",
   "main": "dist/sofa.core.js",
+  "devDependencies": {
+    "sofa-testing": "0.1.x"
+  },
   "keywords": [
     "sofa",
     "sofa.io",
