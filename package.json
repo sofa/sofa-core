@@ -1,6 +1,6 @@
 {
   "name": "sofa-core",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Sofa Web SDK core components.",
   "main": "dist/sofa.core.js",
   "homepage": "http://www.sofa.io",
