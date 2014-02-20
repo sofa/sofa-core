@@ -554,6 +554,19 @@ sofa.models.Product.prototype.areAllVariantsOutOfStock = function () {
     return false;
 };
 
+/**
+ * @method hasAttributes
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns true if the product has at least one attribute key
+ *
+ * @return {boolean}
+ */
+sofa.models.Product.prototype.hasAttributes = function () {
+    return this.attributes && Object.keys(this.attributes).length > 0;
+};
+
 'use strict';
 /**
  * @name Observable
