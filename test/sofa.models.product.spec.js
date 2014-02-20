@@ -152,6 +152,19 @@ describe('sofa.core', function () {
             });
         });
 
+        describe('sofa.models.Product#hasAttributes', function () {
+
+            it('should be false', function () {
+                product.attributes = {};
+                expect(product.hasAttributes()).toBe(false);
+            });
+
+            it('should be true', function () {
+                product.attributes = { color: 'red' };
+                expect(product.hasAttributes()).toBe(true);
+            });
+        });
+
         describe('sofa.models.Product#isOutOfStock', function () {
 
             it('should be a function', function () {
