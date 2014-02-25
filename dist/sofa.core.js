@@ -1417,6 +1417,14 @@ sofa.Util = {
         var jsonStr = str.substring(1, str.length - 1);
 
         return JSON.parse(jsonStr);
+    },
+
+    toFormData: function (obj) {
+        var str = [];
+        for (var p in obj) {
+            str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        }
+        return str.join('&');
     }
 };
 
