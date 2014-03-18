@@ -118,6 +118,10 @@ describe('sofa.core', function () {
             expect(util.toJson).toBeDefined();
         });
 
+        it('should have a method fromJson', function () {
+            expect(util.fromJson).toBeDefined();
+        });
+
         describe('sofa.Util#domReady', function () {
 
             it('should be a function', function () {
@@ -481,6 +485,17 @@ describe('sofa.core', function () {
                 expect(util.toJson('({ "foo": "bar" })')).toEqual({
                     foo: 'bar'
                 });
+            });
+        });
+
+        describe('sofa.Util#fromJson', function () {
+            it('should be a function', function () {
+                expect(typeof util.fromJson).toBe('function');
+            });
+
+            it('should deserialize a json string', function () {
+                expect(util.fromJson('{ "foo": "bar"}'))
+                    .toEqual({ foo : 'bar' });
             });
         });
     });
