@@ -1,3 +1,8 @@
+<a name="0.5.1"></a>
+### 0.5.1 (2014-03-19)
+
+* **sofa.Util:** removes fromJson method ([c9122ea8](https://github.com/sofa/sofa-core/commit/c9122ea84d40e26c3ad6fa09e15ae92eef27d25d))
+
 <a name="0.5.0"></a>
 ## 0.5.0 (2014-03-18)
 

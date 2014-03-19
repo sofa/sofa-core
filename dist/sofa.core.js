@@ -1419,10 +1419,6 @@ sofa.Util = {
         return JSON.parse(jsonStr);
     },
 
-    fromJson: function (json) {
-        return sofa.Util.isString(json) ? JSON.parse(json) : json;
-    },
-
     toFormData: function (obj) {
         var str = [];
         for (var p in obj) {
