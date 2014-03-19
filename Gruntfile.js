@@ -7,6 +7,18 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
+        pkg: grunt.file.readJSON('package.json'),
+        meta: {
+            banner:
+                '/**\n' +
+                ' * <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
+                ' * <%= pkg.homepage %>\n' +
+                ' *\n' +
+                ' * Copyright (c) 2013 CouchCommerce GmbH (http://www.couchcommerce.org) and other contributors\n' +
+                ' * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA SDK (SOFA.IO).\n' +
+                ' * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.\n' +
+                ' */\n'
+        },
         component_name: 'sofa.core',
         component_sass_name: grunt.file.readJSON('bower.json').name,
         build_dir: 'dist',
@@ -116,6 +128,9 @@ module.exports = function (grunt) {
         },
 
         concat: {
+            options: {
+                banner: '<%= meta.banner %>'
+            },
             compile_js: {
                 src: [
                     'component.prefix',
@@ -130,6 +145,9 @@ module.exports = function (grunt) {
 
         uglify: {
             compile: {
+                options: {
+                    banner: '<%= meta.banner %>'
+                },
                 files: {
                     '<%= build_dir %>/<%= component_name %>.min.js': '<%= concat.compile_js.dest %>'
                 }
