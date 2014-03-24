@@ -3,6 +3,25 @@
 /* global keys: true */
 /* global toString: true */
 /* global isEqual: true */
+
+function isArrayLike(obj) {
+    if (obj === null || isWindow(obj)) {
+        return false;
+    }
+
+    var length = obj.length;
+
+    if (obj.nodeType === 1 && length) {
+        return true;
+    }
+
+    return sofa.Util.isString(obj) || sofa.Util.isArray(obj) || length === 0 ||
+            typeof length === 'number' && length > 0 && (length - 1) in obj;
+}
+
+function isWindow(obj) {
+    return obj && obj.document && obj.location && obj.alert && obj.setInterval;
+}
 /**
  * @name Util
  * @namespace sofa.Util
@@ -376,5 +395,34 @@ sofa.Util = {
             str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
         }
         return str.join('&');
+    },
+
+
+    forEach: function (obj, iterator, context) {
+        var key;
+        if (obj) {
+            if (sofa.Util.isFunction(obj)) {
+                for (key in obj) {
+                    // Need to check if hasOwnProperty exists,
+                    // as on IE8 the result of querySelectorAll is an object without a hasOwnProperty function
+                    if (obj.hasOwnProperty(key)) {
+                        iterator.call(context, obj[key], key);
+                    }
+                }
+            } else if (obj.forEach && obj.forEach !== sofa.Util.forEach) {
+                obj.forEach(iterator, context);
+            } else if (isArrayLike(obj)) {
+                for (key = 0; key < obj.length; key++) {
+                    iterator.call(context, obj[key], key);
+                }
+            } else {
+                for (key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        iterator.call(context, obj[key], key);
+                    }
+                }
+            }
+        }
+        return obj;
     }
 };
