@@ -1,3 +1,12 @@
+<a name="0.6.0"></a>
+## 0.6.0 (2014-03-24)
+
+
+#### Features
+
+* **sofa.Util:** adds forEach method ([4f23dd41](https://github.com/sofa/sofa-core/commit/4f23dd41d69a09ec32adb752f7245079f466d7b6))
+
+
 <a name="0.5.1"></a>
 ### 0.5.1 (2014-03-19)
 
