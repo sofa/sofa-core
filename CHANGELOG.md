@@ -1,3 +1,12 @@
+<a name="0.6.1"></a>
+### 0.6.1 (2014-03-31)
+
+
+#### Bug Fixes
+
+* ***:** removes sofa-q-service ([76e730fe](https://github.com/sofa/sofa-core/commit/76e730fe1aba845c8c0ea76fbe8532a5421834cc))
+
+
 <a name="0.6.0"></a>
 ## 0.6.0 (2014-03-24)
 
