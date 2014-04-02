@@ -1,9 +1,9 @@
 # Contributing Guide
 
-Contributing to this repo is fairly easy. This document shows you how to
+Contributing to this repository is fairly easy. This document shows you how to
 get the project, run all provided tests and generate a production ready build.
 
-It also covers provided grunt tasks, that help you developing on this repo.
+It also covers provided grunt tasks, that help you developing on this repository.
 
 ## Dependencies
 
@@ -45,55 +45,54 @@ The project is now installed and ready to be built.
 This repo comes with a few **grunt tasks** which help you to automate
 the development process. The following grunt tasks are provided:
 
-#### <code>grunt</code>
+#### Grunt tasks
 
-Running <code>grunt</code> without any parameters, will actually execute the registered
-default task. This task is currently nothing more then a **lint task**, to make sure
-that your JavaScript code is written well.
+All sofa components have the provide the same grunt tasks. These are the following:
 
-#### <code>grunt test</code>
+#### `grunt test`
 
-<code>grunt test</code> executes (as you might thought) the unit tests, which are located
-in <code>test/unit</code>. The task uses **karma** the spectacular test runner to executes
+`grunt test` executes (as you might thought) the unit tests, which are located
+in `test/`. The task uses **karma** the spectacular test runner to execute
 the tests with the **jasmine testing framework**.
 
-#### <code>grunt build</code>
+#### `grunt build`
 
 You only have to use this task, if you want to generate a production ready build of
 this project. This task will also **lint**, **test** and **minify** the
 source. After running this task, you'll find the following files in a generated
-<code>dist</code> folder:
+`dist` folder:
 
 ````
-dist/angular-<component-name>-x.x.x.js
-dist/angular-<component-name>-x.x.x.min.js
+dist/sofa.XXX.js
+dist/sofa.XXX.min.js
 ````
 
-#### <code>grunt watch</code>
+#### `grunt watch`
 
 This task will watch all relevant files. When it notice a change, it'll run the
 **lint** and **test** task. Use this task while developing on the source
-to make sure, everytime you make a change you get notified if your code is incosistent
+to make sure, every time you make a change you get notified if your code is incosistent
 or doesn't pass the tests.
 
 ## Contributing/Submitting changes
 
 - Checkout a new branch based on <code>master</code> and name it to what you intend to do:
   - Example:
-    ````
+    ```sh
     $ git checkout -b BRANCH_NAME
-    ````
+    ```
   - Use one branch per fix/feature
 - Make your changes
   - Make sure to provide a spec for unit tests
-  - Run your tests with either <code>karma start</code> or <code>grunt test</code>
+  - Run your tests with `grunt test`
   - When all tests pass, everything's fine
 - Commit your changes
   - Please provide a git message which explains what you've done
   - This repo uses [Brian's conventional-changelog task](https://github.com/btford/grunt-conventional-changelog) so please make sure your commits follow the [conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit)
   - Commit to the forked repository
 - Make a pull request
-  - Make sure you send the PR to the <code>canary</code> branch
+  - Before sending a PR it's always helpful to rebase your changes against latest `master` first
+  - Once your commits are rebased, simply send a pull request against the current `master` branch
   - Travis CI is watching you!
 
 If you follow these instructions, your PR will land pretty safety in the main repo!
