@@ -37,7 +37,7 @@ sofa.models.Product.prototype.getImage = function (size) {
  * @description
  * Returns all images of the product in size 'large'.
  *
- * @return {array} Arraz of image urls.
+ * @return {array} Array of image urls.
  */
 sofa.models.Product.prototype.getAllImages = function () {
 
@@ -79,12 +79,18 @@ sofa.models.Product.prototype.hasBasePrice = function () {
  * @memberof sofa.models.Product
  *
  * @description
- * Returns the base price per unit
+ * Returns the base price per unit. When variant is passed, return the base price for this variant.
+ *
+ * @param {variant} Optional variant object
  *
  * @return {Number}
  */
-sofa.models.Product.prototype.getBasePriceStr = function () {
-    return sofa.Util.toFixed(this.custom1, 2);
+sofa.models.Product.prototype.getBasePriceStr = function (variant) {
+    var base = this.custom1;
+    if (variant) {
+        base = (1 / variant.unitAmount) * parseFloat(variant.price);
+    }
+    return sofa.Util.toFixed(base, 2);
 };
 
 /**

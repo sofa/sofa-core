@@ -1,3 +1,12 @@
+<a name="0.7.0"></a>
+## 0.7.0 (2014-04-14)
+
+
+#### Features
+
+* **product:** allow passing in a variant to calculate base price per variant ([41b58807](https://github.com/sofa/sofa-core/commit/41b588072faf51b6d20c03ab630bf44a4273dfb3))
+
+
 <a name="0.6.1"></a>
 ### 0.6.1 (2014-03-31)
 
