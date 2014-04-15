@@ -140,6 +140,19 @@ sofa.models.Product.prototype.hasVariants = function () {
 };
 
 /**
+ * @method hasInfiniteStock
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns true if the product has infinte stock
+ *
+ * @return {boolean}
+ */
+sofa.models.Product.prototype.hasInfiniteStock = function () {
+    return this.qty === undefined || this.qty === null;
+};
+
+/**
  * @method isOutOfStock
  * @memberof sofa.models.Product
  *
@@ -151,7 +164,7 @@ sofa.models.Product.prototype.hasVariants = function () {
 sofa.models.Product.prototype.isOutOfStock = function () {
 
     //this means, it's always in stock
-    if (this.qty === undefined || this.qty === null) {
+    if (this.hasInfiniteStock()) {
         return false;
     }
 
