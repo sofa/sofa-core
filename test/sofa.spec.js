@@ -24,10 +24,6 @@ describe('sofa.core', function () {
             expect(sofa.define).toBeDefined();
         });
 
-        it('should have a method inherits', function () {
-            expect(sofa.inherits).toBeDefined();
-        });
-
         describe('sofa#namespace', function () {
 
             it('should be a function', function () {
@@ -91,13 +87,6 @@ describe('sofa.core', function () {
                 sofa.define('bar', function () {});
                 expect(sofa.bar).toBeDefined();
                 expect(typeof sofa.bar).toBe('function');
-            });
-        });
-
-        describe('sofa#inherits', function () {
-
-            it('should be a function', function () {
-                expect(typeof sofa.inherits).toBe('function');
             });
         });
     });
