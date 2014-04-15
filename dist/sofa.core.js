@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.7.0 - 2014-04-14
+ * sofa-core - v0.7.0 - 2014-04-15
  * http://www.sofa.io
  *
  * Copyright (c) 2013 CouchCommerce GmbH (http://www.couchcommerce.org) and other contributors
@@ -142,61 +142,6 @@ sofa.namespace = function (namespaceString) {
 sofa.define = function (namespace, fn) {
     sofa.namespace(namespace).bind(fn);
 };
-
-/**
- * @method inherits
- * @memberof sofa
- * @public
- *
- * @description
- * Sets up an inheritance chain between two objects
- * (See {@link https://github.com/isaacs/inherits/blob/master/inherits.js}).
- *
- * @example
- * // creating a constructor
- * function Child () {
- *   Child.super.call(this)
- *   console.error([this
- *                ,this.constructor
- *                ,this.constructor === Child
- *                ,this.constructor.super === Parent
- *                ,Object.getPrototypeOf(this) === Child.prototype
- *                ,Object.getPrototypeOf(Object.getPrototypeOf(this))
- *                 === Parent.prototype
- *                ,this instanceof Child
- *                ,this instanceof Parent])
- * }
- *
- * // creating another constructor
- * function Parent () {}
- *
- * sofa.inherits(Child, Parent)
- * // getting an instance
- * new Child
- *
- * @param {object} c Child constructor.
- * @param {object} p Parent constructor.
- * @param {object} proto Prototype object.
- */
-
- /*jshint asi: true*/
-sofa.inherits = function (c, p, proto) {
-    //this code uses a shitty form of semicolon less
-    //writing. We just copied it from:
-    //https://github.com/isaacs/inherits/blob/master/inherits.js
-
-    proto = proto || {};
-    var e = {};
-    
-    [c.prototype, proto].forEach(function (s) {
-        Object.getOwnPropertyNames(s).forEach(function (k) {
-            e[k] = Object.getOwnPropertyDescriptor(s, k);
-        });
-    });
-    c.prototype = Object.create(p.prototype, e);
-    c.super = p
-};
-/*jshint asi: false*/
 
 'use strict';
 /**
@@ -553,6 +498,19 @@ sofa.models.Product.prototype.hasVariants = function () {
 };
 
 /**
+ * @method hasInfiniteStock
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns true if the product has infinte stock
+ *
+ * @return {boolean}
+ */
+sofa.models.Product.prototype.hasInfiniteStock = function () {
+    return this.qty === undefined || this.qty === null;
+};
+
+/**
  * @method isOutOfStock
  * @memberof sofa.models.Product
  *
@@ -564,7 +522,7 @@ sofa.models.Product.prototype.hasVariants = function () {
 sofa.models.Product.prototype.isOutOfStock = function () {
 
     //this means, it's always in stock
-    if (this.qty === undefined || this.qty === null) {
+    if (this.hasInfiniteStock()) {
         return false;
     }
 
