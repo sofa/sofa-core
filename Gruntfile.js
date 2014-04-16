@@ -14,8 +14,8 @@ module.exports = function (grunt) {
                 ' * <%= pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' +
                 ' * <%= pkg.homepage %>\n' +
                 ' *\n' +
-                ' * Copyright (c) 2013 CouchCommerce GmbH (http://www.couchcommerce.org) and other contributors\n' +
-                ' * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA SDK (SOFA.IO).\n' +
+                ' * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors\n' +
+                ' * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO).\n' +
                 ' * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.\n' +
                 ' */\n'
         },
