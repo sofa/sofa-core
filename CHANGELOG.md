@@ -1,3 +1,13 @@
+<a name="0.7.2"></a>
+### 0.7.2 (2014-04-16)
+
+
+#### Bug Fixes
+
+* **Gruntfile:** fixes license banner ([bd61901a](https://github.com/sofa/sofa-core/commit/bd61901a8b847d120455fa1656cb38cbb1fd89ed))
+* **LICENSE:** fixes naming ([d1044b98](https://github.com/sofa/sofa-core/commit/d1044b9873056f60b6023898688d9721ffd09d0e))
+
+
 <a name="0.7.0"></a>
 ## 0.7.0 (2014-04-14)
 

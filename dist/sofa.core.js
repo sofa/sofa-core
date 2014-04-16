@@ -1,9 +1,9 @@
 /**
- * sofa-core - v0.7.0 - 2014-04-15
+ * sofa-core - v0.7.2 - 2014-04-16
  * http://www.sofa.io
  *
- * Copyright (c) 2013 CouchCommerce GmbH (http://www.couchcommerce.org) and other contributors
- * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA SDK (SOFA.IO).
+ * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
+ * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO).
  * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.
  */
 ;(function (window, undefined) {
