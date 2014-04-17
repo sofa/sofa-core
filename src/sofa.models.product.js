@@ -87,7 +87,7 @@ sofa.models.Product.prototype.hasBasePrice = function () {
  */
 sofa.models.Product.prototype.getBasePriceStr = function (variant) {
     var base = this.custom1;
-    if (variant) {
+    if (variant && variant.unitAmount) {
         base = (1 / variant.unitAmount) * parseFloat(variant.price);
     }
     return sofa.Util.toFixed(base, 2);

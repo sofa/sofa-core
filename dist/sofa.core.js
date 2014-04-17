@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.7.2 - 2014-04-16
+ * sofa-core - v0.7.3 - 2014-04-17
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -439,7 +439,7 @@ sofa.models.Product.prototype.hasBasePrice = function () {
  */
 sofa.models.Product.prototype.getBasePriceStr = function (variant) {
     var base = this.custom1;
-    if (variant) {
+    if (variant && variant.unitAmount) {
         base = (1 / variant.unitAmount) * parseFloat(variant.price);
     }
     return sofa.Util.toFixed(base, 2);

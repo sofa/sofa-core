@@ -1,3 +1,12 @@
+<a name="0.7.3"></a>
+### 0.7.3 (2014-04-17)
+
+
+#### Bug Fixes
+
+* **product:** check for a valid unitAmount in getBasePriceStr ([787291b6](https://github.com/sofa/sofa-core/commit/787291b601c6b462ef48dfd3bb9719ad12aaff98))
+
+
 <a name="0.7.2"></a>
 ### 0.7.2 (2014-04-16)
 
