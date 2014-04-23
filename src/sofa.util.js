@@ -40,7 +40,7 @@ sofa.Util = {
      *
      * @description
      * Checks if the <code>toFixed()</code> function in the current JavaScript
-     * environment is broken or not. For more info see {@link http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed }.
+     * environment is broken or not. For more info see http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed.
      *
      * @return {boolean} Whether its broken or not.
      */
@@ -119,13 +119,13 @@ sofa.Util = {
     },
     /**
      * @sofadoc method
-     * @name sofa.Util.Array#clone
-     * @memberof sofa.Util.Array
+     * @name sofa.Util#clone
+     * @memberof sofa.Util
      *
      * @description
      * This method is useful for cloning complex (read: nested) objects without
      * having references from the clone to the original object.
-     * (See {@link http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object}).
+     * (See http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object).
      *
      * @param {object} obj Object to clone.
      * @return {object} A clone of the given object.
@@ -348,6 +348,15 @@ sofa.Util = {
     capitalize: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     },
+    /**
+     * @sofadoc class
+     * @name sofa.Util.Array
+     * @package sofa-core
+     * @distFile dist/sofa.core.js
+     *
+     * @description
+     * foo
+     */
     Array: {
         /**
         * @sofadoc method
