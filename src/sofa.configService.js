@@ -2,11 +2,7 @@
 /**
  * @sofadoc class
  * @name sofa.ConfigService
- * @requires sofa.HttpService
- * @requires sofa.FooService
  * @package sofa-core
- * @requiresPackage sofa-http-service
- * @requiresPackage sofa-foo-service
  * @distFile dist/sofa.core.js
  *
  * @description
