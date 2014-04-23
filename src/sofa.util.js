@@ -23,8 +23,10 @@ function isWindow(obj) {
     return obj && obj.document && obj.location && obj.alert && obj.setInterval;
 }
 /**
- * @name Util
- * @namespace sofa.Util
+ * @sofadoc class
+ * @name sofa.Util
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
  * Namespace containing utility functions for compatibility stuff etc.
@@ -32,7 +34,8 @@ function isWindow(obj) {
  */
 sofa.Util = {
     /**
-     * @method isToFixedBroken
+     * @sofadoc method
+     * @name isToFixedBroken
      * @memberof sofa.Util
      *
      * @description
@@ -44,13 +47,6 @@ sofa.Util = {
     isToFixedBroken: (0.9).toFixed() !== '1',
     indicatorObject: {},
 
-    /**
-     * @member {object} objectTypes
-     * @memberof sofa.Util
-     *
-     * @description
-     * Used to determine if values are of the language type Object
-     */
     objectTypes: {
         'boolean': false,
         'function': true,
@@ -61,7 +57,8 @@ sofa.Util = {
     },
 
     /**
-     * @method domReady
+     * @sofadoc method
+     * @name sofa.Util#domReady
      * @memberof sofa.Util
      *
      * @description
@@ -79,7 +76,8 @@ sofa.Util = {
         }
     },
     /**
-     * @method round
+     * @sofadoc method
+     * @name sofa.Util#round
      * @memberof sofa.Util
      *
      * @description
@@ -95,7 +93,8 @@ sofa.Util = {
         return (Math.round(value * multiplier) / multiplier);
     },
     /**
-     * @method toFixed
+     * @sofadoc method
+     * @name sofa.Util#oFixed
      * @memberof sofa.Util
      *
      * @description
@@ -119,8 +118,9 @@ sofa.Util = {
         return value.toFixed(precision);
     },
     /**
-     * @method clone
-     * @memberof sofa.Util
+     * @sofadoc method
+     * @name sofa.Util.Array#clone
+     * @memberof sofa.Util.Array
      *
      * @description
      * This method is useful for cloning complex (read: nested) objects without
@@ -167,7 +167,8 @@ sofa.Util = {
         throw new Error('Unable to copy obj! Its type isn\'t supported.');
     },
     /**
-     * @method extend
+     * @sofadoc method
+     * @name sofa.Util#extend
      * @memberof sofa.Util
      *
      * @description
@@ -349,8 +350,9 @@ sofa.Util = {
     },
     Array: {
         /**
-        * @method remove
-        * @public
+        * @sofadoc method
+        * @name sofa.Util.Array#remove
+        * @memberof sofa.Util
         *
         * @description
         * Removes a given item from a given array and returns the manipulated
