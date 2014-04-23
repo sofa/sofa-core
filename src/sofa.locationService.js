@@ -1,8 +1,9 @@
 'use strict';
 /**
- * @name LocationService
- * @class
- * @namespace sofa.LocationService
+ * @sofadoc class
+ * @name sofa.LocationService
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
  * Service to work with the browsers location.
@@ -11,7 +12,8 @@ sofa.define('sofa.LocationService', function () {
 
     return {
         /**
-         * @method path
+         * @sofadoc method
+         * @name sofa.LocationService#path
          * @memberof sofa.LocationService
          *
          * @description

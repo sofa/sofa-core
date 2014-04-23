@@ -1,7 +1,10 @@
 'use strict';
 /**
- * @name Product
- * @namespace sofa.models.Product
+ * @sofadoc model
+ * @name sofa.models.Product
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @namespace sofa.models
  *
  * @description
  * A model that represents a Product object and adds convenient methods to it.
@@ -9,7 +12,8 @@
 sofa.define('sofa.models.Product', function () {});
 
 /**
- * @method getImage
+ * @sofadoc method
+ * @name sofa.models.Product#getImage
  * @memberof sofa.models.Product
  *
  * @description
@@ -31,7 +35,8 @@ sofa.models.Product.prototype.getImage = function (size) {
 };
 
 /**
- * @method getAllImages
+ * @sofadoc method
+ * @name sofa.models.Product#getAllImages
  * @memberof sofa.models.Product
  *
  * @description
@@ -49,7 +54,8 @@ sofa.models.Product.prototype.getAllImages = function () {
 };
 
 /**
- * @method hasMultipleImages
+ * @sofadoc method
+ * @name sofa.models.Product#hasMultipleImages
  * @memberof sofa.models.Product
  *
  * @description
@@ -62,7 +68,8 @@ sofa.models.Product.prototype.hasMultipleImages = function () {
 };
 
 /**
- * @method hasBasePrice
+ * @sofadoc method
+ * @name sofa.models.Product#hasBasePrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -75,7 +82,8 @@ sofa.models.Product.prototype.hasBasePrice = function () {
 };
 
 /**
- * @method getBasePrice
+ * @sofadoc method
+ * @name sofa.models.Product#getBasePrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -94,7 +102,8 @@ sofa.models.Product.prototype.getBasePriceStr = function (variant) {
 };
 
 /**
- * @method hasUnit
+ * @sofadoc method
+ * @name sofa.models.Product#hasUnit
  * @memberof sofa.models.Product
  *
  * @description
@@ -107,7 +116,8 @@ sofa.models.Product.prototype.hasUnit = function () {
 };
 
 /**
- * @method getUnit
+ * @sofadoc method
+ * @name sofa.models.Product#getUnit
  * @memberof sofa.models.Product
  *
  * @description
@@ -120,7 +130,8 @@ sofa.models.Product.prototype.getUnit = function () {
 };
 
 /**
- * @method hasOldPrice
+ * @sofadoc method
+ * @name sofa.models.Product#hasOldPrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -133,7 +144,8 @@ sofa.models.Product.prototype.hasOldPrice = function () {
 };
 
 /**
- * @method hasVariants
+ * @sofadoc method
+ * @name sofa.models.Product#hasVariants
  * @memberof sofa.models.Product
  *
  * @description
@@ -146,7 +158,8 @@ sofa.models.Product.prototype.hasVariants = function () {
 };
 
 /**
- * @method hasInfiniteStock
+ * @sofadoc method
+ * @name sofa.models.Product#hasInfiniteStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -159,7 +172,8 @@ sofa.models.Product.prototype.hasInfiniteStock = function () {
 };
 
 /**
- * @method isOutOfStock
+ * @sofadoc method
+ * @name sofa.models.Product#isOutOfStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -183,7 +197,8 @@ sofa.models.Product.prototype.isOutOfStock = function () {
 };
 
 /**
- * @method areAllVariantsOutOfStock
+ * @sofadoc method
+ * @name sofa.models.Product#areAllVariantsOutOfStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -202,7 +217,8 @@ sofa.models.Product.prototype.areAllVariantsOutOfStock = function () {
 };
 
 /**
- * @method hasAttributes
+ * @sofadoc method
+ * @name sofa.models.Product#hasAttributes
  * @memberof sofa.models.Product
  *
  * @description

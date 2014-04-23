@@ -1,7 +1,10 @@
 'use strict';
 /**
- * @name BasketItem
- * @namespace sofa.models.BasketItem
+ * @sofadoc model
+ * @name sofa.models.BasketItem
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @namespace sofa.models
  *
  * @description
  * A basket item model that represents basket items. This model provides some methods
@@ -17,7 +20,8 @@ sofa.define('sofa.models.BasketItem', function () {
 });
 
 /**
- * @method getPrice
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getPrice
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -30,7 +34,8 @@ sofa.models.BasketItem.prototype.getPrice = function () {
 };
 
 /**
- * @method getTotal
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getTotal
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -43,7 +48,8 @@ sofa.models.BasketItem.prototype.getTotal = function () {
 };
 
 /**
- * @method getVariantID
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getVariantID
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -56,7 +62,8 @@ sofa.models.BasketItem.prototype.getVariantID = function () {
 };
 
 /**
- * @method getOptionID
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getOptionID
  * @memberof sofa.models.BasketItem
  *
  * @description
