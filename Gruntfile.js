@@ -190,6 +190,29 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['jshint:test_unit', 'karma:unit:run']
             }
+        },
+
+        deploy: {
+            options: {
+                versionFiles: [
+                    'package.json',
+                    'bower.json'
+                ],
+                preDeployFn: function (grunt) {
+                    grunt.task.run([
+                        'build',
+                        'changelog'
+                    ]);
+                },
+                postDeployFn: function (grunt) {
+                    if (!grunt.option('soft')) {
+                        var exec = require('child_process').exec;
+                        exec('npm publish', null, function (err, stdout) {
+                            console.log(stdout);
+                        });
+                    }
+                }
+            }
         }
     });
 
