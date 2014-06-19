@@ -193,6 +193,37 @@ module.exports = function (grunt) {
                 ],
                 tasks: ['jshint:test_unit', 'karma:unit:run']
             }
+        },
+
+        deploy: {
+            options: {
+                versionFiles: [
+                    'package.json',
+                    'bower.json'
+                ],
+                preDeployFn: function (grunt, newVersion, done) {
+                    // Needed to make uglify use the banner with the new version inside
+                    grunt.config.set('pkg', grunt.file.readJSON('package.json'));
+
+                    grunt.task.run([
+                        'build',
+                        'changelog'
+                    ]);
+                    done();
+                },
+                postDeployFn: function (grunt, newVersion, done) {
+                    if (!grunt.option('soft')) {
+                        var exec = require('child_process').exec;
+                        exec('npm publish', null, function (err, stdout) {
+                            console.log(stdout);
+                            done();
+                        });
+                    }
+                    else {
+                        done();
+                    }
+                }
+            }
         }
     });
 
