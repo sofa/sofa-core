@@ -6,7 +6,24 @@
  * @description
  * A model that represents a Product object and adds convenient methods to it.
  */
-sofa.define('sofa.models.Product', function () {});
+sofa.define('sofa.models.Product', function (config) {
+    this._config = config;
+});
+
+/**
+ * @method getOriginFullUrl
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the URL used for the resource and uses the original shop URL
+ * if `useShopUrls` in injected `config` is true. Otherwise will use the
+ * `urlKey` as a fallback.
+ *
+ * @return {string} the URL of the resource
+ */
+sofa.models.Product.prototype.getOriginFullUrl = function () {
+    return this._config.useShopUrls ? this.originFullUrl : this.urlKey;
+};
 
 /**
  * @method getImage
@@ -27,7 +44,7 @@ sofa.models.Product.prototype.getImage = function (size) {
         }
     }
 
-    return sofa.Config.mediaPlaceholder;
+    return this._config.mediaPlaceholder;
 };
 
 /**

@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.7.3 - 2014-04-17
+ * sofa-core - v0.7.3 - 2014-06-20
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -353,12 +353,57 @@ sofa.models.BasketItem.prototype.getOptionID = function () {
 'use strict';
 /**
  * @name Product
+ * @namespace sofa.models.Category
+ *
+ * @description
+ * A model that represents a Category object and adds convenient methods to it.
+ */
+sofa.define('sofa.models.Category', function (config) {
+    this._config = config;
+});
+
+/**
+ * @method getOriginFullUrl
+ * @memberof sofa.models.Category
+ *
+ * @description
+ * Returns the URL used for the resource and uses the original shop URL
+ * if `useShopUrls` in injected `config` is true. Otherwise will use the
+ * `urlId` as a fallback.
+ *
+ * @return {string} the URL of the resource
+ */
+sofa.models.Category.prototype.getOriginFullUrl = function () {
+    // TODO: reaching for sofa.Config here is super dirty.
+    return this._config.useShopUrls ? this.originFullUrl : this.urlId;
+};
+
+'use strict';
+/**
+ * @name Product
  * @namespace sofa.models.Product
  *
  * @description
  * A model that represents a Product object and adds convenient methods to it.
  */
-sofa.define('sofa.models.Product', function () {});
+sofa.define('sofa.models.Product', function (config) {
+    this._config = config;
+});
+
+/**
+ * @method getOriginFullUrl
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the URL used for the resource and uses the original shop URL
+ * if `useShopUrls` in injected `config` is true. Otherwise will use the
+ * `urlKey` as a fallback.
+ *
+ * @return {string} the URL of the resource
+ */
+sofa.models.Product.prototype.getOriginFullUrl = function () {
+    return this._config.useShopUrls ? this.originFullUrl : this.urlKey;
+};
 
 /**
  * @method getImage
@@ -379,7 +424,7 @@ sofa.models.Product.prototype.getImage = function (size) {
         }
     }
 
-    return sofa.Config.mediaPlaceholder;
+    return this._config.mediaPlaceholder;
 };
 
 /**

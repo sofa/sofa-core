@@ -7,7 +7,7 @@ describe('sofa.core', function () {
         var product;
 
         beforeEach(function () {
-            product = new sofa.models.Product();
+            product = new sofa.models.Product({ mediaPlaceholder: 'dummy.jpg'});
         });
 
         it('should be defined', function () {
@@ -162,6 +162,23 @@ describe('sofa.core', function () {
             it('should be true', function () {
                 product.attributes = { color: 'red' };
                 expect(product.hasAttributes()).toBe(true);
+            });
+        });
+
+        describe('sofa.models.Product#getOriginFullUrl', function () {
+            var productConfig = {};
+            var product = new sofa.models.Product(productConfig);
+            product.originFullUrl = 'full/url';
+            product.urlKey = 'full-url';
+
+            it('should return full url', function () {
+                productConfig.useShopUrls = true;
+                expect(product.getOriginFullUrl()).toBe(product.originFullUrl);
+            });
+
+            it('should return fallback url', function () {
+                productConfig.useShopUrls = false;
+                expect(product.getOriginFullUrl()).toBe(product.urlKey);
             });
         });
 
