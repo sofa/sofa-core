@@ -99,6 +99,9 @@ module.exports = function (grunt) {
             },
             continuous: {
                 singleRun: true
+            },
+            debug: {
+                singleRun: false
             }
         },
 
