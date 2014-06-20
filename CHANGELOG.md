@@ -1,3 +1,19 @@
+<a name="0.8.0"></a>
+## 0.8.0 (2014-06-20)
+
+
+#### Bug Fixes
+
+* **Gruntfile:** fixes license banner ([bd61901a](https://github.com/sofa/sofa-core/commit/bd61901a8b847d120455fa1656cb38cbb1fd89ed))
+* **LICENSE:** fixes naming ([d1044b98](https://github.com/sofa/sofa-core/commit/d1044b9873056f60b6023898688d9721ffd09d0e))
+* **product:** check for a valid unitAmount in getBasePriceStr ([e8f98b04](https://github.com/sofa/sofa-core/commit/e8f98b047579fcf047e9e059ac9a6661854f62cf))
+
+
+#### Features
+
+* ***:** introduce new model APIs ([21b36498](https://github.com/sofa/sofa-core/commit/21b36498311aae5fa46bcd6637cb85821ea97848))
+
+
 <a name="0.7.3"></a>
 ### 0.7.3 (2014-04-17)
 
