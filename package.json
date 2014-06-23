@@ -1,57 +1,57 @@
 {
-  "name": "sofa-core",
-  "version": "0.8.1",
-  "description": "Sofa Web SDK core components.",
-  "main": "dist/sofa.core.js",
-  "homepage": "http://www.sofa.io",
-  "scripts": {
-    "test": "grunt build"
-  },
-  "engines": {
-    "node": ">=0.10.x",
-    "npm": ">=1.2.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sofa/sofa-core"
-  },
-  "keywords": [
-    "sofa",
-    "sofa.io",
-    "web",
-    "sdk",
-    "core"
-  ],
-  "author": "Pascal Precht <pascal@couchcommerce.com>",
-  "license": "GPL",
-  "bugs": {
-    "url": "https://github.com/sofa/sofa-core/issues"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.3",
-    "grunt-contrib-uglify": "~0.2.4",
-    "grunt-html2js": "~0.1.4",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-jshint": "~0.8.0",
-    "load-grunt-tasks": "~0.2.1",
-    "grunt-contrib-cssmin": "~0.7.0",
-    "grunt-ngmin": "0.0.3",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-clean": "~0.5.0",
-    "lodash": "~2.4.1",
-    "grunt-contrib-sass": "~0.7.2",
-    "grunt-cli": "~0.1.13",
-    "karma": "~0.12.0",
-    "grunt-karma": "~0.8.0",
-    "grunt-conventional-changelog": "~1.1.0",
-    "sofa-testing": "~0.1.x",
-    "karma-jasmine": "~0.1.5",
-    "karma-chrome-launcher": "~0.1.2",
-    "karma-firefox-launcher": "~0.1.3",
-    "grunt-deploy-semver": "^0.3.0"
-  },
-  "dependencies": {
-    "sofa-q-service": "0.1.x"
-  }
+    "name": "sofa-core",
+    "version": "0.9.0",
+    "description": "Sofa Web SDK core components.",
+    "main": "dist/sofa.core.js",
+    "homepage": "http://www.sofa.io",
+    "scripts": {
+        "test": "grunt build"
+    },
+    "engines": {
+        "node": ">=0.10.x",
+        "npm": ">=1.2.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sofa/sofa-core"
+    },
+    "keywords": [
+        "sofa",
+        "sofa.io",
+        "web",
+        "sdk",
+        "core"
+    ],
+    "author": "Pascal Precht <pascal@couchcommerce.com>",
+    "license": "GPL",
+    "bugs": {
+        "url": "https://github.com/sofa/sofa-core/issues"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.3",
+        "grunt-contrib-uglify": "~0.2.4",
+        "grunt-html2js": "~0.1.4",
+        "grunt-contrib-concat": "~0.3.0",
+        "grunt-contrib-copy": "~0.5.0",
+        "grunt-contrib-jshint": "~0.8.0",
+        "load-grunt-tasks": "~0.2.1",
+        "grunt-contrib-cssmin": "~0.7.0",
+        "grunt-ngmin": "0.0.3",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-clean": "~0.5.0",
+        "lodash": "~2.4.1",
+        "grunt-contrib-sass": "~0.7.2",
+        "grunt-cli": "~0.1.13",
+        "karma": "~0.12.0",
+        "grunt-karma": "~0.8.0",
+        "grunt-conventional-changelog": "~1.1.0",
+        "sofa-testing": "~0.1.x",
+        "karma-jasmine": "~0.1.5",
+        "karma-chrome-launcher": "~0.1.2",
+        "karma-firefox-launcher": "~0.1.3",
+        "grunt-deploy-semver": "^0.3.0"
+    },
+    "dependencies": {
+        "sofa-q-service": "0.1.x"
+    }
 }

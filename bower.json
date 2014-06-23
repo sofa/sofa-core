@@ -1,21 +1,21 @@
 {
-  "name": "sofa-core",
-  "version": "0.8.1",
-  "homepage": "http://www.sofa.io",
-  "authors": [
-    "Pascal Precht <pascal@couchcommerce.com>"
-  ],
-  "description": "Sofa Web SDK core components.",
-  "main": "dist/sofa.core.js",
-  "devDependencies": {
-    "sofa-testing": "0.1.x"
-  },
-  "keywords": [
-    "sofa",
-    "sofa.io",
-    "web",
-    "sdk",
-    "core"
-  ],
-  "license": "GPL"
+    "name": "sofa-core",
+    "version": "0.9.0",
+    "homepage": "http://www.sofa.io",
+    "authors": [
+        "Pascal Precht <pascal@couchcommerce.com>"
+    ],
+    "description": "Sofa Web SDK core components.",
+    "main": "dist/sofa.core.js",
+    "devDependencies": {
+        "sofa-testing": "0.1.x"
+    },
+    "keywords": [
+        "sofa",
+        "sofa.io",
+        "web",
+        "sdk",
+        "core"
+    ],
+    "license": "GPL"
 }

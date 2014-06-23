@@ -1,3 +1,12 @@
+<a name="0.9.0"></a>
+## 0.9.0 (2014-06-23)
+
+
+#### Features
+
+* **grunt:** easier deploying ([120d6d31](https://github.com/sofa/sofa-core/commit/120d6d3111e365c5de868ab070ce0d6bb4c53f9a))
+
+
 <a name="0.8.1"></a>
 ### 0.8.1 (2014-06-20)
 

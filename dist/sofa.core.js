@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.7.3 - 2014-06-20
+ * sofa-core - v0.9.0 - 2014-06-23
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
