@@ -1,57 +1,71 @@
 'use strict';
 /**
- * @module sofa
- *
- * @description
- * The web app SDK module contains all SDK components you need to build your
- * custom mobile shop based on CouchCommerce API's.
- */
-
-/**
+ * @sofadoc class
  * @name sofa
- * @class
- * @global
- * @static
- * @namespace sofa
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
- * The global `sofa` object is a static instance that provides a basic API to create
- * for example namespaces as well as methods for creating inheritance.
- * In general you'd never use this object directly, since the SDK takes care of
- * that for you.
+ * The `sofa` object provides a global namespace for methods to build the internal
+ * library structure of sofa itself. These are methods for things such as defining
+ * sub namespaces on the `sofa` object or providing inheritance functionality for
+ * JavaScript objects. It's worth to mention that the `sofa` object is a very
+ * low-level interface for developers. You actually don't have to access all of
+ * its methods since they are mainly for internal functionality.
+ *
+ * However, when developing new sofa components, that sit on top of sofa's core,
+ * you have to use `sofa.define()` to create a sub namespace and its component
+ * functionality.
  */
 var cc = window.cc = {};
 var sofa = window.sofa = cc;
 
 /**
- * @method namespace
+ * @sofadoc method
+ * @name sofa#namespace
  * @memberof sofa
- * @public
  *
  * @description
- * Creates the given namespace within the 'sofa' namespace. The method returns
- * a `namespaceObject` that contains information about the namespace.
+ * Creates the given namespace within the `sofa` namespace. The method returns
+ * a `namespaceObject` that contains information about the namespace. Simply pass
+ * a string that represents a namespace using the dot notation. So a valid namespace
+ * would be `foo.bar.bazinga` as well as `foo`.
  *
- * Simply pass a string that represents a namespace using the dot notation.
- * So a valid namespace would be 'foo.bar.bazinga' as well as 'foo'.
+ * It's not required to mention `sofa` as root in the namespace, since this
+ * method creates the given namespace automatically under `sofa` namespace. In case
+ * 'sofa' is given as root namespace, it gets stripped out, so its more a kind of
+ * syntactic sugar to mention `sofa` namespace.
  *
- * It's not required to mention 'sofa' as root in the namespace, since this
- * method creates the given namespace automatically under 'sofa' namespace.
+ * <example name="example-sofa-namespace">
+ *  <file name="index.html">
+ *      Hello
+ *  </file>
+ *  <file name="app.js">
+ *      var foo = 'bar';
+ *      alert('Hi ingo');
+ *  </file>
+ * </example>
  *
- * In case 'sofa' is given as root namespace, it gets stripped out, so its more
- * a kind of syntactic sugar to mention 'sofa' namespace.
+ * The following code creates a namespace for `sofa.services.FooService`:
  *
- * @example
- * // creates a namespace for `sofa.services.FooService`
+ * ```js
  * sofa.namespace('sofa.services.FooService');
+ * ```
  *
- * @example
- * // also creates a namespace for `sofa.services.FooService`
+ * And like mentioned, this would also create exactly the same namespace:
+ *
+ * ```js
  * sofa.namespace('services.FooService');
+ * ```
  *
- * @param {string} namespaceString A namespace string e.g. 'sofa.services.FooService'.
- * @returns {namespaceObject} A namespace object containing information about the current
- * and parent targets.
+ * @param {string} namespaceString A string that represents the new created namespace
+ * e.g. `sofa.services.FooService`.
+ * @returns {object} A namespace object containing information about the current
+ * and parent targets with the following structure:
+ *
+ *     targetParent - Parent namespace object.
+ *     targetName - Current namespace name.
+ *     bind - A convenient function to bind a value to the namespace.
  */
 sofa.namespace = function (namespaceString) {
     var parts = namespaceString.split('.'), parent = sofa, i;
@@ -79,13 +93,6 @@ sofa.namespace = function (namespaceString) {
         parent = parent[parts[i]];
     }
 
-    /**
-    * @typdef namespaceObject
-    * @type {object}
-    * @property {object} targetParent - Parent namespace object.
-    * @property {string} targetName - Current namespace name.
-    * @property {function} bind - A convenient function to bind a value to the namespace.
-    */
     return {
         targetParent: targetParent,
         targetName: targetName,
@@ -96,26 +103,30 @@ sofa.namespace = function (namespaceString) {
 };
 
 /**
- * @method define
+ * @sofadoc method
+ * @name sofa#define
  * @memberof sofa
- * @public
  *
  * @description
- * This method delegates to [sofa.namespace]{@link sofa#namespace} and binds a new
- * value to it's given namespace. Because of delegation, rules for the given
- * namespace are the same as for `sofa.namespace`.
+ * The `define` method delegates to sofa.namespace and binds a new value to its
+ * given namespace. Because of delegation, rules for the given namespace are the
+ * same as for `sofa.namespace`. As second argument you have to provide a
+ * constructor function that will be bound to the given namespace.
  *
- * As second argument you have to provide a constructor function that will be
- * bound to the given namespace.
+ * You generally use this method to define new components in the `sofa` namespace.
+ * For example, creating a new component `FooService` in the namespace `sofa.services`
+ * could look like this:
  *
- * @example
- * // defining constructor for 'foo.bar'
+ * ```js
  * sofa.define('foo.bar', function () {
  *  // some logic
  * });
+ * ```
  *
- * @example
- * // of course it's also possible to use named functions
+ * Since this is plain old JavaScript, it's also possible to use named functions
+ * as constructor argument, to make the code a bit more readable:
+ *
+ * ```js
  * var Greeter = function () {
  *  return {
  *    sayHello: function () {
@@ -125,8 +136,18 @@ sofa.namespace = function (namespaceString) {
  * };
  *
  * sofa.define('greeter', Greeter);
+ * ```
  *
- * @param {string} namespace A namespace string e.g. 'sofa.services.FooService".
+ * Once a component is defined, you can use it by instantiating it via `new`
+ * operator like this:
+ *
+ * ```js
+ * var greeterService = new sofa.greeter();
+ * greeter.sayHello();
+ * ```
+ *
+ * @param {string} namespace A string that represents the namespace of the to be
+ * defined component, e.g. `sofa.services.FooService`.
  * @param {function} fn A constructor function that will be bound to the namespace.
  */
 sofa.define = function (namespace, fn) {
