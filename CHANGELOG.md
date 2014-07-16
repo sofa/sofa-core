@@ -1,3 +1,12 @@
+<a name="0.9.1"></a>
+### 0.9.1 (2014-07-16)
+
+
+#### Bug Fixes
+
+* **product:** make size in getImage(size) optional ([db93a470](https://github.com/sofa/sofa-core/commit/db93a470bb34b98237b5a9f957cddc004aaf75fa))
+
+
 <a name="0.9.0"></a>
 ## 0.9.0 (2014-06-23)
 
