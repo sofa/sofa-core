@@ -1,12 +1,14 @@
 'use strict';
 /**
- * @name ConfigService
- * @class
- * @namespace sofa.ConfigService
+ * @sofadoc class
+ * @name sofa.ConfigService
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
- * General configuration service which kind of behaves as a registry
- * pattern to make configurations available on all layers.
+ * This is a general configuration service which kind of behaves like a registry
+ * pattern to make configurations available on all layers. Use this service to
+ * access configuration data for you shop.
  */
 sofa.define('sofa.ConfigService', function () {
 
@@ -15,17 +17,19 @@ sofa.define('sofa.ConfigService', function () {
     sofa.Config = sofa.Config || {};
 
     /**
-     * @method getSupportedCountries
+     * @sofadoc method
+     * @name sofa.ConfigService#getSupportedCountries
      * @memberof sofa.ConfigService
      *
      * @description
-     * Gets an array of supported countries for shipping and invoicing.
+     * Returns an array of supported countries for shipping and invoicing. If no
+     * countries are specified on the internal config object, this method returns
+     * and empty array. Simply call this method by running:
      *
-     * @example
-     * // returns supported countries
-     * sofa.ConfigService.getSupportedCountries();
-     *
-     * @return {array} Returns an array of strings for supported countries.
+     * ```js
+     * var countries = configService.getSupportedCountries();
+     * ```
+     * @return {array}  An array of strings for supported countries for shipping and invoicing.
      */
     self.getSupportedCountries = function () {
         if (!sofa.Config.countries) {
@@ -37,17 +41,18 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method getDefaultCountry
+     * @sofadoc method
+     * @name sofa.ConfigService#getDefaultCountry
      * @memberof sofa.ConfigService
      *
      * @description
-     * Gets the default country for shipping and invoicing.
+     * Returns the default country for shipping and invoicing that is configured
+     * for the shop. In case no countries are available, this method returns `null`.
+     * ```js
+     * var defaultCountry = configService.getDefaultCountry();
+     * ```
      *
-     * @example
-     * // returns default country
-     * sofa.ConfigService.getDefaultCountry();
-     *
-     * @return {string} Default country.
+     * @return {string} Name of the default country.
      */
     self.getDefaultCountry = function () {
         var countries = self.getSupportedCountries();
@@ -55,16 +60,29 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method getLocalizedPayPalButtonClass
+     * @sofadoc method
+     * @name sofa.ConfigService#getLocalizedPayPalButtonClass
      * @memberof sofa.ConfigService
      *
      * @description
-     * Returns a localized paypal button css class.
+     * Returns a localized paypal button css class. This method has to be refactored
+     * since it currently relies on hard-coded class names. Passing an expression
+     * that ends up in a boolean value, tells the method wether to return a class
+     * for an enabled or a disabled button.
      *
-     * @example
-     * sofa.ConfigService.getLocalizedPayPalButtonClass();
+     * For example calling this method like this:
      *
-     * @return {string} PayPal button class.
+     * ```js
+     * var className = configService.getLocalizedPayPalButtonClass();
+     * ```
+     * Returns the class for an enabled button. Calling it with for example `true`
+     * gives us the class for a disabled button.
+     *
+     * ```js
+     * var className = configService.getLocalizedPayPalButtonClass(true);
+     * ```
+     *
+     * @return {string} PayPal button class name.
      */
     self.getLocalizedPayPalButtonClass = function (disabled) {
         return !disabled ? 'cc-paypal-button--' + self.get('locale') :
@@ -72,21 +90,27 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method get
+     * @sofadoc method
+     * @name sofa.ConfigService#get
      * @memberof sofa.ConfigService
      *
      * @description
      * Generic getter function that returns a config value by a given key.
+     *
+     * ```js
+     * var value = configService.get('foo');
+     * ```
+     *
      * If a default value is passed and no config setting with the given key
-     * exists, it is returned.
+     * exists, it is returned. For example, assuming that no configuration for
+     * `foo` exists, we can default to any custom value like this:
      *
-     * @example
-     * // returns config setting for 'foo'
-     * sofa.ConfigService.get('foo');
+     * ```js
+     * var value = configService.get('foo', 5); // `5` is a default value
+     * ```
      *
-     * @example
-     * // returns 5 if config for 'foo' doesn't exist
-     * sofa.ConfigService.get('foo', 5);
+     * If no configuration exists and no default value is given, this method
+     * returns `undefined`.
      *
      * @param {string} key Key for a certain config value.
      * @param {object} defaultValue A default value which will be returned
