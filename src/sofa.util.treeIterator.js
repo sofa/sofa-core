@@ -1,7 +1,10 @@
 'use strict';
 /**
- * @name TreeIterator
- * @namespace sofa.helper.TreeIterator
+ * @sofadoc class
+ * @name sofa.Util.TreeIterator
+ * @package sofa-core
+ * @distFile dist/sofa-core.js
+ * @namespace sofa.Util.TreeIterator
  *
  * @description
  * We only use the TreeIterator to built a HashMap for fast lookups.
@@ -13,8 +16,9 @@ sofa.define('sofa.util.TreeIterator', function (tree, childNodeProperty) {
         continueIteration = true;
 
     /**
-     * @method iterateChildren
-     * @memberof sofa.helper.TreeIterator
+     * @sofadoc method
+     * @name sofa.Util.TreeIterator#iterateChildren
+     * @memberof sofa.Util.TreeIterator
      *
      * @description
      * Iterates over a tree of children and applies a given function to

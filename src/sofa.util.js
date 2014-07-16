@@ -23,8 +23,11 @@ function isWindow(obj) {
     return obj && obj.document && obj.location && obj.alert && obj.setInterval;
 }
 /**
- * @name Util
- * @namespace sofa.Util
+ * @sofadoc class
+ * @name sofa.Util
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @static
  *
  * @description
  * Namespace containing utility functions for compatibility stuff etc.
@@ -32,25 +35,19 @@ function isWindow(obj) {
  */
 sofa.Util = {
     /**
-     * @method isToFixedBroken
+     * @sofadoc method
+     * @name sofa.Util#isToFixedBroken
      * @memberof sofa.Util
      *
      * @description
      * Checks if the <code>toFixed()</code> function in the current JavaScript
-     * environment is broken or not. For more info see {@link http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed }.
+     * environment is broken or not. For more info see http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed.
      *
      * @return {boolean} Whether its broken or not.
      */
     isToFixedBroken: (0.9).toFixed() !== '1',
     indicatorObject: {},
 
-    /**
-     * @member {object} objectTypes
-     * @memberof sofa.Util
-     *
-     * @description
-     * Used to determine if values are of the language type Object
-     */
     objectTypes: {
         'boolean': false,
         'function': true,
@@ -61,7 +58,8 @@ sofa.Util = {
     },
 
     /**
-     * @method domReady
+     * @sofadoc method
+     * @name sofa.Util#domReady
      * @memberof sofa.Util
      *
      * @description
@@ -79,7 +77,8 @@ sofa.Util = {
         }
     },
     /**
-     * @method round
+     * @sofadoc method
+     * @name sofa.Util#round
      * @memberof sofa.Util
      *
      * @description
@@ -95,7 +94,8 @@ sofa.Util = {
         return (Math.round(value * multiplier) / multiplier);
     },
     /**
-     * @method toFixed
+     * @sofadoc method
+     * @name sofa.Util#oFixed
      * @memberof sofa.Util
      *
      * @description
@@ -119,13 +119,14 @@ sofa.Util = {
         return value.toFixed(precision);
     },
     /**
-     * @method clone
+     * @sofadoc method
+     * @name sofa.Util#clone
      * @memberof sofa.Util
      *
      * @description
      * This method is useful for cloning complex (read: nested) objects without
      * having references from the clone to the original object.
-     * (See {@link http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object}).
+     * (See http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object).
      *
      * @param {object} obj Object to clone.
      * @return {object} A clone of the given object.
@@ -167,7 +168,8 @@ sofa.Util = {
         throw new Error('Unable to copy obj! Its type isn\'t supported.');
     },
     /**
-     * @method extend
+     * @sofadoc method
+     * @name sofa.Util#extend
      * @memberof sofa.Util
      *
      * @description
@@ -347,10 +349,20 @@ sofa.Util = {
     capitalize: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     },
+    /**
+     * @sofadoc class
+     * @name sofa.Util.Array
+     * @package sofa-core
+     * @distFile dist/sofa.core.js
+     *
+     * @description
+     * foo
+     */
     Array: {
         /**
-        * @method remove
-        * @public
+        * @sofadoc method
+        * @name sofa.Util.Array#remove
+        * @memberof sofa.Util
         *
         * @description
         * Removes a given item from a given array and returns the manipulated
