@@ -419,7 +419,10 @@ sofa.models.Product.prototype.getOriginFullUrl = function () {
  */
 sofa.models.Product.prototype.getImage = function (size) {
     for (var i = 0; i < this.images.length; i++) {
-        if (this.images[i].sizeName.toLowerCase() === size) {
+        if (this.images[i].sizeName && this.images[i].sizeName.toLowerCase() === size) {
+            return this.images[i].url;
+        }
+        else {
             return this.images[i].url;
         }
     }
