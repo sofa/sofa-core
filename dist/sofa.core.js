@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.9.1 - 2014-07-16
+ * sofa-core - v0.10.0 - 2014-08-05
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -10,58 +10,72 @@
 
 'use strict';
 /**
- * @module sofa
- *
- * @description
- * The web app SDK module contains all SDK components you need to build your
- * custom mobile shop based on CouchCommerce API's.
- */
-
-/**
+ * @sofadoc class
  * @name sofa
- * @class
- * @global
- * @static
- * @namespace sofa
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
- * The global `sofa` object is a static instance that provides a basic API to create
- * for example namespaces as well as methods for creating inheritance.
- * In general you'd never use this object directly, since the SDK takes care of
- * that for you.
+ * The `sofa` object provides a global namespace for methods to build the internal
+ * library structure of sofa itself. These are methods for things such as defining
+ * sub namespaces on the `sofa` object or providing inheritance functionality for
+ * JavaScript objects. It's worth to mention that the `sofa` object is a very
+ * low-level interface for developers. You actually don't have to access all of
+ * its methods since they are mainly for internal functionality.
+ *
+ * However, when developing new sofa components, that sit on top of sofa's core,
+ * you have to use `sofa.define()` to create a sub namespace and its component
+ * functionality.
  */
 var cc = window.cc = {};
 var sofa = window.sofa = cc;
 
 /**
- * @method namespace
+ * @sofadoc method
+ * @name sofa#namespace
  * @memberof sofa
- * @public
  *
  * @description
- * Creates the given namespace within the 'sofa' namespace. The method returns
- * a `namespaceObject` that contains information about the namespace.
+ * Creates the given namespace within the `sofa` namespace. The method returns
+ * a `namespaceObject` that contains information about the namespace. Simply pass
+ * a string that represents a namespace using the dot notation. So a valid namespace
+ * would be `foo.bar.bazinga` as well as `foo`.
  *
- * Simply pass a string that represents a namespace using the dot notation.
- * So a valid namespace would be 'foo.bar.bazinga' as well as 'foo'.
+ * It's not required to mention `sofa` as root in the namespace, since this
+ * method creates the given namespace automatically under `sofa` namespace. In case
+ * 'sofa' is given as root namespace, it gets stripped out, so its more a kind of
+ * syntactic sugar to mention `sofa` namespace.
  *
- * It's not required to mention 'sofa' as root in the namespace, since this
- * method creates the given namespace automatically under 'sofa' namespace.
+ * <example name="example-sofa-namespace">
+ *  <file name="index.html">
+ *      Hello
+ *  </file>
+ *  <file name="app.js">
+ *      var foo = 'bar';
+ *      alert('Hi ingo');
+ *  </file>
+ * </example>
  *
- * In case 'sofa' is given as root namespace, it gets stripped out, so its more
- * a kind of syntactic sugar to mention 'sofa' namespace.
+ * The following code creates a namespace for `sofa.services.FooService`:
  *
- * @example
- * // creates a namespace for `sofa.services.FooService`
+ * ```js
  * sofa.namespace('sofa.services.FooService');
+ * ```
  *
- * @example
- * // also creates a namespace for `sofa.services.FooService`
+ * And like mentioned, this would also create exactly the same namespace:
+ *
+ * ```js
  * sofa.namespace('services.FooService');
+ * ```
  *
- * @param {string} namespaceString A namespace string e.g. 'sofa.services.FooService'.
- * @returns {namespaceObject} A namespace object containing information about the current
- * and parent targets.
+ * @param {string} namespaceString A string that represents the new created namespace
+ * e.g. `sofa.services.FooService`.
+ * @returns {object} A namespace object containing information about the current
+ * and parent targets with the following structure:
+ *
+ *     targetParent - Parent namespace object.
+ *     targetName - Current namespace name.
+ *     bind - A convenient function to bind a value to the namespace.
  */
 sofa.namespace = function (namespaceString) {
     var parts = namespaceString.split('.'), parent = sofa, i;
@@ -89,13 +103,6 @@ sofa.namespace = function (namespaceString) {
         parent = parent[parts[i]];
     }
 
-    /**
-    * @typdef namespaceObject
-    * @type {object}
-    * @property {object} targetParent - Parent namespace object.
-    * @property {string} targetName - Current namespace name.
-    * @property {function} bind - A convenient function to bind a value to the namespace.
-    */
     return {
         targetParent: targetParent,
         targetName: targetName,
@@ -106,26 +113,30 @@ sofa.namespace = function (namespaceString) {
 };
 
 /**
- * @method define
+ * @sofadoc method
+ * @name sofa#define
  * @memberof sofa
- * @public
  *
  * @description
- * This method delegates to [sofa.namespace]{@link sofa#namespace} and binds a new
- * value to it's given namespace. Because of delegation, rules for the given
- * namespace are the same as for `sofa.namespace`.
+ * The `define` method delegates to sofa.namespace and binds a new value to its
+ * given namespace. Because of delegation, rules for the given namespace are the
+ * same as for `sofa.namespace`. As second argument you have to provide a
+ * constructor function that will be bound to the given namespace.
  *
- * As second argument you have to provide a constructor function that will be
- * bound to the given namespace.
+ * You generally use this method to define new components in the `sofa` namespace.
+ * For example, creating a new component `FooService` in the namespace `sofa.services`
+ * could look like this:
  *
- * @example
- * // defining constructor for 'foo.bar'
+ * ```js
  * sofa.define('foo.bar', function () {
  *  // some logic
  * });
+ * ```
  *
- * @example
- * // of course it's also possible to use named functions
+ * Since this is plain old JavaScript, it's also possible to use named functions
+ * as constructor argument, to make the code a bit more readable:
+ *
+ * ```js
  * var Greeter = function () {
  *  return {
  *    sayHello: function () {
@@ -135,8 +146,18 @@ sofa.namespace = function (namespaceString) {
  * };
  *
  * sofa.define('greeter', Greeter);
+ * ```
  *
- * @param {string} namespace A namespace string e.g. 'sofa.services.FooService".
+ * Once a component is defined, you can use it by instantiating it via `new`
+ * operator like this:
+ *
+ * ```js
+ * var greeterService = new sofa.greeter();
+ * greeter.sayHello();
+ * ```
+ *
+ * @param {string} namespace A string that represents the namespace of the to be
+ * defined component, e.g. `sofa.services.FooService`.
  * @param {function} fn A constructor function that will be bound to the namespace.
  */
 sofa.define = function (namespace, fn) {
@@ -145,13 +166,15 @@ sofa.define = function (namespace, fn) {
 
 'use strict';
 /**
- * @name ConfigService
- * @class
- * @namespace sofa.ConfigService
+ * @sofadoc class
+ * @name sofa.ConfigService
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
- * General configuration service which kind of behaves as a registry
- * pattern to make configurations available on all layers.
+ * This is a general configuration service which kind of behaves like a registry
+ * pattern to make configurations available on all layers. Use this service to
+ * access configuration data for you shop.
  */
 sofa.define('sofa.ConfigService', function () {
 
@@ -160,17 +183,19 @@ sofa.define('sofa.ConfigService', function () {
     sofa.Config = sofa.Config || {};
 
     /**
-     * @method getSupportedCountries
+     * @sofadoc method
+     * @name sofa.ConfigService#getSupportedCountries
      * @memberof sofa.ConfigService
      *
      * @description
-     * Gets an array of supported countries for shipping and invoicing.
+     * Returns an array of supported countries for shipping and invoicing. If no
+     * countries are specified on the internal config object, this method returns
+     * and empty array. Simply call this method by running:
      *
-     * @example
-     * // returns supported countries
-     * sofa.ConfigService.getSupportedCountries();
-     *
-     * @return {array} Returns an array of strings for supported countries.
+     * ```js
+     * var countries = configService.getSupportedCountries();
+     * ```
+     * @return {array}  An array of strings for supported countries for shipping and invoicing.
      */
     self.getSupportedCountries = function () {
         if (!sofa.Config.countries) {
@@ -182,17 +207,18 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method getDefaultCountry
+     * @sofadoc method
+     * @name sofa.ConfigService#getDefaultCountry
      * @memberof sofa.ConfigService
      *
      * @description
-     * Gets the default country for shipping and invoicing.
+     * Returns the default country for shipping and invoicing that is configured
+     * for the shop. In case no countries are available, this method returns `null`.
+     * ```js
+     * var defaultCountry = configService.getDefaultCountry();
+     * ```
      *
-     * @example
-     * // returns default country
-     * sofa.ConfigService.getDefaultCountry();
-     *
-     * @return {string} Default country.
+     * @return {string} Name of the default country.
      */
     self.getDefaultCountry = function () {
         var countries = self.getSupportedCountries();
@@ -200,16 +226,29 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method getLocalizedPayPalButtonClass
+     * @sofadoc method
+     * @name sofa.ConfigService#getLocalizedPayPalButtonClass
      * @memberof sofa.ConfigService
      *
      * @description
-     * Returns a localized paypal button css class.
+     * Returns a localized paypal button css class. This method has to be refactored
+     * since it currently relies on hard-coded class names. Passing an expression
+     * that ends up in a boolean value, tells the method wether to return a class
+     * for an enabled or a disabled button.
      *
-     * @example
-     * sofa.ConfigService.getLocalizedPayPalButtonClass();
+     * For example calling this method like this:
      *
-     * @return {string} PayPal button class.
+     * ```js
+     * var className = configService.getLocalizedPayPalButtonClass();
+     * ```
+     * Returns the class for an enabled button. Calling it with for example `true`
+     * gives us the class for a disabled button.
+     *
+     * ```js
+     * var className = configService.getLocalizedPayPalButtonClass(true);
+     * ```
+     *
+     * @return {string} PayPal button class name.
      */
     self.getLocalizedPayPalButtonClass = function (disabled) {
         return !disabled ? 'cc-paypal-button--' + self.get('locale') :
@@ -217,21 +256,27 @@ sofa.define('sofa.ConfigService', function () {
     };
 
     /**
-     * @method get
+     * @sofadoc method
+     * @name sofa.ConfigService#get
      * @memberof sofa.ConfigService
      *
      * @description
      * Generic getter function that returns a config value by a given key.
+     *
+     * ```js
+     * var value = configService.get('foo');
+     * ```
+     *
      * If a default value is passed and no config setting with the given key
-     * exists, it is returned.
+     * exists, it is returned. For example, assuming that no configuration for
+     * `foo` exists, we can default to any custom value like this:
      *
-     * @example
-     * // returns config setting for 'foo'
-     * sofa.ConfigService.get('foo');
+     * ```js
+     * var value = configService.get('foo', 5); // `5` is a default value
+     * ```
      *
-     * @example
-     * // returns 5 if config for 'foo' doesn't exist
-     * sofa.ConfigService.get('foo', 5);
+     * If no configuration exists and no default value is given, this method
+     * returns `undefined`.
      *
      * @param {string} key Key for a certain config value.
      * @param {object} defaultValue A default value which will be returned
@@ -255,9 +300,10 @@ sofa.define('sofa.ConfigService', function () {
 
 'use strict';
 /**
- * @name LocationService
- * @class
- * @namespace sofa.LocationService
+ * @sofadoc class
+ * @name sofa.LocationService
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
  *
  * @description
  * Service to work with the browsers location.
@@ -266,7 +312,8 @@ sofa.define('sofa.LocationService', function () {
 
     return {
         /**
-         * @method path
+         * @sofadoc method
+         * @name sofa.LocationService#path
          * @memberof sofa.LocationService
          *
          * @description
@@ -282,8 +329,11 @@ sofa.define('sofa.LocationService', function () {
 
 'use strict';
 /**
- * @name BasketItem
- * @namespace sofa.models.BasketItem
+ * @sofadoc model
+ * @name sofa.models.BasketItem
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @namespace sofa.models
  *
  * @description
  * A basket item model that represents basket items. This model provides some methods
@@ -299,7 +349,8 @@ sofa.define('sofa.models.BasketItem', function () {
 });
 
 /**
- * @method getPrice
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getPrice
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -312,7 +363,8 @@ sofa.models.BasketItem.prototype.getPrice = function () {
 };
 
 /**
- * @method getTotal
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getTotal
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -325,7 +377,8 @@ sofa.models.BasketItem.prototype.getTotal = function () {
 };
 
 /**
- * @method getVariantID
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getVariantID
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -338,7 +391,8 @@ sofa.models.BasketItem.prototype.getVariantID = function () {
 };
 
 /**
- * @method getOptionID
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getOptionID
  * @memberof sofa.models.BasketItem
  *
  * @description
@@ -380,8 +434,11 @@ sofa.models.Category.prototype.getOriginFullUrl = function () {
 
 'use strict';
 /**
- * @name Product
- * @namespace sofa.models.Product
+ * @sofadoc model
+ * @name sofa.models.Product
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @namespace sofa.models
  *
  * @description
  * A model that represents a Product object and adds convenient methods to it.
@@ -406,7 +463,8 @@ sofa.models.Product.prototype.getOriginFullUrl = function () {
 };
 
 /**
- * @method getImage
+ * @sofadoc method
+ * @name sofa.models.Product#getImage
  * @memberof sofa.models.Product
  *
  * @description
@@ -431,7 +489,8 @@ sofa.models.Product.prototype.getImage = function (size) {
 };
 
 /**
- * @method getAllImages
+ * @sofadoc method
+ * @name sofa.models.Product#getAllImages
  * @memberof sofa.models.Product
  *
  * @description
@@ -449,7 +508,8 @@ sofa.models.Product.prototype.getAllImages = function () {
 };
 
 /**
- * @method hasMultipleImages
+ * @sofadoc method
+ * @name sofa.models.Product#hasMultipleImages
  * @memberof sofa.models.Product
  *
  * @description
@@ -462,7 +522,8 @@ sofa.models.Product.prototype.hasMultipleImages = function () {
 };
 
 /**
- * @method hasBasePrice
+ * @sofadoc method
+ * @name sofa.models.Product#hasBasePrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -475,7 +536,8 @@ sofa.models.Product.prototype.hasBasePrice = function () {
 };
 
 /**
- * @method getBasePrice
+ * @sofadoc method
+ * @name sofa.models.Product#getBasePrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -494,7 +556,8 @@ sofa.models.Product.prototype.getBasePriceStr = function (variant) {
 };
 
 /**
- * @method hasUnit
+ * @sofadoc method
+ * @name sofa.models.Product#hasUnit
  * @memberof sofa.models.Product
  *
  * @description
@@ -507,7 +570,8 @@ sofa.models.Product.prototype.hasUnit = function () {
 };
 
 /**
- * @method getUnit
+ * @sofadoc method
+ * @name sofa.models.Product#getUnit
  * @memberof sofa.models.Product
  *
  * @description
@@ -520,7 +584,8 @@ sofa.models.Product.prototype.getUnit = function () {
 };
 
 /**
- * @method hasOldPrice
+ * @sofadoc method
+ * @name sofa.models.Product#hasOldPrice
  * @memberof sofa.models.Product
  *
  * @description
@@ -533,7 +598,8 @@ sofa.models.Product.prototype.hasOldPrice = function () {
 };
 
 /**
- * @method hasVariants
+ * @sofadoc method
+ * @name sofa.models.Product#hasVariants
  * @memberof sofa.models.Product
  *
  * @description
@@ -546,7 +612,8 @@ sofa.models.Product.prototype.hasVariants = function () {
 };
 
 /**
- * @method hasInfiniteStock
+ * @sofadoc method
+ * @name sofa.models.Product#hasInfiniteStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -559,7 +626,8 @@ sofa.models.Product.prototype.hasInfiniteStock = function () {
 };
 
 /**
- * @method isOutOfStock
+ * @sofadoc method
+ * @name sofa.models.Product#isOutOfStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -583,7 +651,8 @@ sofa.models.Product.prototype.isOutOfStock = function () {
 };
 
 /**
- * @method areAllVariantsOutOfStock
+ * @sofadoc method
+ * @name sofa.models.Product#areAllVariantsOutOfStock
  * @memberof sofa.models.Product
  *
  * @description
@@ -602,7 +671,8 @@ sofa.models.Product.prototype.areAllVariantsOutOfStock = function () {
 };
 
 /**
- * @method hasAttributes
+ * @sofadoc method
+ * @name sofa.models.Product#hasAttributes
  * @memberof sofa.models.Product
  *
  * @description
@@ -734,8 +804,11 @@ function isWindow(obj) {
     return obj && obj.document && obj.location && obj.alert && obj.setInterval;
 }
 /**
- * @name Util
- * @namespace sofa.Util
+ * @sofadoc class
+ * @name sofa.Util
+ * @package sofa-core
+ * @distFile dist/sofa.core.js
+ * @static
  *
  * @description
  * Namespace containing utility functions for compatibility stuff etc.
@@ -743,25 +816,19 @@ function isWindow(obj) {
  */
 sofa.Util = {
     /**
-     * @method isToFixedBroken
+     * @sofadoc method
+     * @name sofa.Util#isToFixedBroken
      * @memberof sofa.Util
      *
      * @description
      * Checks if the <code>toFixed()</code> function in the current JavaScript
-     * environment is broken or not. For more info see {@link http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed }.
+     * environment is broken or not. For more info see http://docs.sencha.com/touch/2.2.0/source/Number2.html#Ext-Number-method-toFixed.
      *
      * @return {boolean} Whether its broken or not.
      */
     isToFixedBroken: (0.9).toFixed() !== '1',
     indicatorObject: {},
 
-    /**
-     * @member {object} objectTypes
-     * @memberof sofa.Util
-     *
-     * @description
-     * Used to determine if values are of the language type Object
-     */
     objectTypes: {
         'boolean': false,
         'function': true,
@@ -772,7 +839,8 @@ sofa.Util = {
     },
 
     /**
-     * @method domReady
+     * @sofadoc method
+     * @name sofa.Util#domReady
      * @memberof sofa.Util
      *
      * @description
@@ -790,7 +858,8 @@ sofa.Util = {
         }
     },
     /**
-     * @method round
+     * @sofadoc method
+     * @name sofa.Util#round
      * @memberof sofa.Util
      *
      * @description
@@ -806,7 +875,8 @@ sofa.Util = {
         return (Math.round(value * multiplier) / multiplier);
     },
     /**
-     * @method toFixed
+     * @sofadoc method
+     * @name sofa.Util#oFixed
      * @memberof sofa.Util
      *
      * @description
@@ -830,13 +900,14 @@ sofa.Util = {
         return value.toFixed(precision);
     },
     /**
-     * @method clone
+     * @sofadoc method
+     * @name sofa.Util#clone
      * @memberof sofa.Util
      *
      * @description
      * This method is useful for cloning complex (read: nested) objects without
      * having references from the clone to the original object.
-     * (See {@link http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object}).
+     * (See http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object).
      *
      * @param {object} obj Object to clone.
      * @return {object} A clone of the given object.
@@ -878,7 +949,8 @@ sofa.Util = {
         throw new Error('Unable to copy obj! Its type isn\'t supported.');
     },
     /**
-     * @method extend
+     * @sofadoc method
+     * @name sofa.Util#extend
      * @memberof sofa.Util
      *
      * @description
@@ -1058,10 +1130,20 @@ sofa.Util = {
     capitalize: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     },
+    /**
+     * @sofadoc class
+     * @name sofa.Util.Array
+     * @package sofa-core
+     * @distFile dist/sofa.core.js
+     *
+     * @description
+     * foo
+     */
     Array: {
         /**
-        * @method remove
-        * @public
+        * @sofadoc method
+        * @name sofa.Util.Array#remove
+        * @memberof sofa.Util
         *
         * @description
         * Removes a given item from a given array and returns the manipulated
@@ -1140,8 +1222,11 @@ sofa.Util = {
 
 'use strict';
 /**
- * @name TreeIterator
- * @namespace sofa.helper.TreeIterator
+ * @sofadoc class
+ * @name sofa.Util.TreeIterator
+ * @package sofa-core
+ * @distFile dist/sofa-core.js
+ * @namespace sofa.Util.TreeIterator
  *
  * @description
  * We only use the TreeIterator to built a HashMap for fast lookups.
@@ -1153,8 +1238,9 @@ sofa.define('sofa.util.TreeIterator', function (tree, childNodeProperty) {
         continueIteration = true;
 
     /**
-     * @method iterateChildren
-     * @memberof sofa.helper.TreeIterator
+     * @sofadoc method
+     * @name sofa.Util.TreeIterator#iterateChildren
+     * @memberof sofa.Util.TreeIterator
      *
      * @description
      * Iterates over a tree of children and applies a given function to
