@@ -36,16 +36,6 @@ var sofa = window.sofa = cc;
  * 'sofa' is given as root namespace, it gets stripped out, so its more a kind of
  * syntactic sugar to mention `sofa` namespace.
  *
- * <example name="example-sofa-namespace">
- *  <file name="index.html">
- *      Hello
- *  </file>
- *  <file name="app.js">
- *      var foo = 'bar';
- *      alert('Hi ingo');
- *  </file>
- * </example>
- *
  * The following code creates a namespace for `sofa.services.FooService`:
  *
  * ```js
