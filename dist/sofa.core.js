@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.10.0 - 2014-08-05
+ * sofa-core - v0.10.1 - 2014-08-08
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -45,16 +45,6 @@ var sofa = window.sofa = cc;
  * method creates the given namespace automatically under `sofa` namespace. In case
  * 'sofa' is given as root namespace, it gets stripped out, so its more a kind of
  * syntactic sugar to mention `sofa` namespace.
- *
- * <example name="example-sofa-namespace">
- *  <file name="index.html">
- *      Hello
- *  </file>
- *  <file name="app.js">
- *      var foo = 'bar';
- *      alert('Hi ingo');
- *  </file>
- * </example>
  *
  * The following code creates a namespace for `sofa.services.FooService`:
  *
