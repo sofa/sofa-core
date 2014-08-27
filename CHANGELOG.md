@@ -1,3 +1,12 @@
+<a name="0.11.0"></a>
+## 0.11.0 (2014-08-27)
+
+
+#### Features
+
+* **util:** add isNotNullNorUndefined method ([65121366](https://github.com/sofa/sofa-core/commit/65121366b8d68ac12bccde185c4080d836c9a831))
+
+
 <a name="0.10.1"></a>
 ### 0.10.1 (2014-08-08)
 

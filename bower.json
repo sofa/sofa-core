@@ -1,6 +1,6 @@
 {
     "name": "sofa-core",
-    "version": "0.10.1",
+    "version": "0.11.0",
     "homepage": "http://www.sofa.io",
     "authors": [
         "Pascal Precht <pascal@couchcommerce.com>"
