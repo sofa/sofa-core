@@ -338,6 +338,9 @@ sofa.Util = {
     isUndefined: function (value) {
         return typeof value === 'undefined';
     },
+    isNotNullNorUndefined: function (value) {
+        return !sofa.Util.isUndefined(value) && value !== null;
+    },
     createGuid: function () {
       //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

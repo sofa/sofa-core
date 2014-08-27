@@ -415,6 +415,34 @@ describe('sofa.core', function () {
             });
         });
 
+        describe('sofa.Util#isNotNullNorUndefined', function () {
+
+            it('should be a function', function () {
+                expect(typeof util.isNotNullNorUndefined).toBe('function');
+            });
+
+            it('should return a boolean', function () {
+                expect(typeof util.isNotNullNorUndefined()).toBe('boolean');
+            });
+
+            it('should return true if given arg is 0', function () {
+                expect(util.isNotNullNorUndefined(0)).toBe(true);
+            });
+
+            it('should return true if given arg is object', function () {
+                expect(util.isNotNullNorUndefined({})).toBe(true);
+            });
+
+            it('should return false if given arg is null', function () {
+                expect(util.isNotNullNorUndefined(null)).toBe(false);
+            });
+
+            it('should return false if given arg is null', function () {
+                expect(util.isNotNullNorUndefined(undefined)).toBe(false);
+            });
+
+        });
+
         describe('sofa.Util#createGuid', function () {
 
             it('should be a function', function () {
