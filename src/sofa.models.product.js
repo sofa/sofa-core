@@ -56,6 +56,30 @@ sofa.models.Product.prototype.getImage = function (size) {
 
 /**
  * @sofadoc method
+ * @name sofa.models.Product#getMainImage
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns either the main image or the first image (as a fallback).
+ *
+ * @return {string} Image url.
+ */
+
+sofa.models.Product.prototype.getMainImage = function () {
+    var mainImage;
+
+    for (var i = 0; i < this.images.length; i++) {
+        if (this.images[i].main) {
+            mainImage = this.images[i].url;
+            break;
+        }
+    }
+
+    return mainImage || this.getImage();
+};
+
+/**
+ * @sofadoc method
  * @name sofa.models.Product#getAllImages
  * @memberof sofa.models.Product
  *
