@@ -1,3 +1,12 @@
+<a name="0.12.0"></a>
+## 0.12.0 (2014-09-23)
+
+
+#### Features
+
+* **product:** add method to get product's main image ([268196dd](https://github.com/sofa/sofa-core/commit/268196dd63bdf5d9881cc7ce6083e5731df98229))
+
+
 <a name="0.11.0"></a>
 ## 0.11.0 (2014-08-27)
 
