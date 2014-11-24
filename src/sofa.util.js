@@ -341,6 +341,18 @@ sofa.Util = {
     isNotNullNorUndefined: function (value) {
         return !sofa.Util.isUndefined(value) && value !== null;
     },
+    isEmptyObject: function (obj) {
+        for (var key in obj) {
+            if (hasOwnProperty.call(obj, key)) {
+                return false;
+            }
+        }
+        return true;
+    },
+    isEmpty: function (enumerable) {
+        return this.isArray(enumerable) ? !enumerable.length :
+            this.isObject(enumerable) ? this.isEmptyObject(enumerable) : true;
+    },
     createGuid: function () {
       //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

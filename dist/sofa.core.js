@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.12.0 - 2014-09-23
+ * sofa-core - v0.12.0 - 2014-11-18
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -1135,6 +1135,18 @@ sofa.Util = {
     },
     isNotNullNorUndefined: function (value) {
         return !sofa.Util.isUndefined(value) && value !== null;
+    },
+    isEmptyObject: function (obj) {
+        for (var key in obj) {
+            if (hasOwnProperty.call(obj, key)) {
+                return false;
+            }
+        }
+        return true;
+    },
+    isEmpty: function (enumerable) {
+        return this.isArray(enumerable) ? !enumerable.length :
+            this.isObject(enumerable) ? this.isEmptyObject(enumerable) : true;
     },
     createGuid: function () {
       //http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
