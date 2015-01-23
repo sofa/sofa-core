@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.13.1 - 2014-12-04
+ * sofa-core - v0.13.2 - 2015-01-23
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -796,7 +796,6 @@ sofa.observable = new sofa.Observable();
 'use strict';
 /* global document: true */
 /* global keys: true */
-/* global toString: true */
 /* global isEqual: true */
 
 function isArrayLike(obj) {
@@ -1122,7 +1121,7 @@ sofa.Util = {
         return !isNaN(parseFloat(value)) && isFinite(value);
     },
     isArray: function (value) {
-        return toString.call(value) === '[object Array]';
+        return value instanceof Array;
     },
     isFunction: function (value) {
         return typeof value === 'function';

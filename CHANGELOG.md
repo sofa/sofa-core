@@ -1,3 +1,12 @@
+<a name="0.13.2"></a>
+### 0.13.2 (2015-01-23)
+
+
+#### Bug Fixes
+
+* **isArray:** use a IE safe technique ([20548c35](https://github.com/sofa/sofa-core/commit/20548c352a7deca2567bd74b76bde80f488ab21d))
+
+
 <a name="0.13.1"></a>
 ### 0.13.1 (2014-12-04)
 
