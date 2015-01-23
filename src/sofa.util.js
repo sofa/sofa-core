@@ -1,7 +1,6 @@
 'use strict';
 /* global document: true */
 /* global keys: true */
-/* global toString: true */
 /* global isEqual: true */
 
 function isArrayLike(obj) {
@@ -327,7 +326,7 @@ sofa.Util = {
         return !isNaN(parseFloat(value)) && isFinite(value);
     },
     isArray: function (value) {
-        return toString.call(value) === '[object Array]';
+        return value instanceof Array;
     },
     isFunction: function (value) {
         return typeof value === 'function';
