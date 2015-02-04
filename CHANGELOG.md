@@ -1,3 +1,27 @@
+### 0.13.2 (2015-02-04)
+
+
+#### Features
+
+* **sofa.ConfigService:** adds Angular configService to build ([e677627c](https://github.com/sofa/sofa-core/commit/e677627c36a201018f1f96238b1feb32cff9eb0c))
+* **sofa.core:** integrates new build task ([3860aef6](https://github.com/sofa/sofa-core/commit/3860aef6a26624922741cf12f06d920c7d906451))
+
+
+#### Breaking Changes
+
+* the new build task renames distribution files from dot-case to camel-case.
+
+Before:
+
+`dist/sofa.core.js`
+
+After:
+
+`dist/sofaCore.js`
+
+ ([3860aef6](https://github.com/sofa/sofa-core/commit/3860aef6a26624922741cf12f06d920c7d906451))
+
+
 <a name="0.13.2"></a>
 ### 0.13.2 (2015-01-23)
 
