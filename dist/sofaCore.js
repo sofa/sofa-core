@@ -1,13 +1,12 @@
 /**
- * sofa-core - v0.13.2 - 2015-01-23
+ * sofa-core - v0.13.2 - Wed Feb 04 2015 14:41:42 GMT+0100 (CET)
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
- * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO).
+ * THIS SOFTWARE CONTAINS COMPONENTS OF THE SOFA.IO COUCHCOMMERCE SDK (WWW.SOFA.IO)
  * IT IS PROVIDED UNDER THE LICENSE TERMS OF THE ATTACHED LICENSE.TXT.
  */
-;(function (window, undefined) {
-
+;(function (sofa, document, undefined) {
 'use strict';
 /**
  * @sofadoc class
@@ -1293,5 +1292,4 @@ sofa.define('sofa.util.TreeIterator', function (tree, childNodeProperty) {
         }
     };
 });
-
-}(window));
+}(sofa, document));
