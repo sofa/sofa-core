@@ -5,7 +5,7 @@
   "main": "dist/sofa.core.js",
   "homepage": "http://www.sofa.io",
   "scripts": {
-    "test": "grunt build"
+    "test": "gulp build"
   },
   "engines": {
     "node": ">=0.10.x",
