@@ -4,5 +4,7 @@ require('shared-sofa-component-tasks')(require('gulp'), {
     testDepedencyFiles: [
         'node_modules/sofa-testing/mocks/sofa.config.mock.js'
     ],
-    sourceFiles: []
+    sourceFiles: [],
+    componentPrefix: 'component.prefix',
+    componentSuffix: 'component.suffix'
 });
