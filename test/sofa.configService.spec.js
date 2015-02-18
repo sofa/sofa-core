@@ -88,5 +88,19 @@ describe('sofa.core', function () {
                 expect(configService.get('storeCode')).toEqual('53787');
             });
         });
+
+
+        describe('sofa.ConfigService#set', function () {
+
+            it('should be a function', function () {
+                expect(typeof configService.set).toBe('function');
+            });
+
+            it('should set a value for given key', function () {
+                configService.set('foo', 'bar');
+                var foo = configService.get('foo');
+                expect(foo).toEqual('bar');
+            });
+        });
     });
 });
