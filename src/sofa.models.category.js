@@ -11,17 +11,41 @@ sofa.define('sofa.models.Category', function (config) {
 });
 
 /**
+ * @deprecated use getUrl()
  * @method getOriginFullUrl
  * @memberof sofa.models.Category
  *
  * @description
- * Returns the URL used for the resource and uses the original shop URL
- * if `useShopUrls` in injected `config` is true. Otherwise will use the
- * `urlId` as a fallback.
+ * Returns the URL used for the resource
  *
  * @return {string} the URL of the resource
  */
 sofa.models.Category.prototype.getOriginFullUrl = function () {
-    // TODO: reaching for sofa.Config here is super dirty.
-    return this._config.useShopUrls ? this.originFullUrl : this.urlId;
+    return this.getUrl();
+};
+
+/**
+ * @method getUrl
+ * @memberof sofa.models.Category
+ *
+ * @description
+ * Returns the category's URL.
+ *
+ * @return {string} The category URL
+ */
+sofa.models.Category.prototype.getUrl = function () {
+    return this.route;
+};
+
+/**
+ * @method hasChildren
+ * @memberof sofa.models.Category
+ *
+ * @description
+ * Returns whether the category has children or not.
+ *
+ * @return {boolean}
+ */
+sofa.models.Category.prototype.hasChildren = function () {
+    return this.children && this.children.length;
 };

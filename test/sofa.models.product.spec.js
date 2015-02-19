@@ -165,20 +165,28 @@ describe('sofa.core', function () {
             });
         });
 
-        describe('sofa.models.Product#getOriginFullUrl', function () {
-            var productConfig = {};
-            var product = new sofa.models.Product(productConfig);
-            product.originFullUrl = 'full/url';
-            product.urlKey = 'full-url';
+        describe('sofa.models.Product#getUrl', function () {
+            var product = new sofa.models.Product({});
 
-            it('should return full url', function () {
-                productConfig.useShopUrls = true;
-                expect(product.getOriginFullUrl()).toBe(product.originFullUrl);
+            product.routes = [
+                {
+                    productUrl: '/some/category/product.html',
+                    categoryId: '01',
+                    categoryUrl: '/some/category.html'
+                },
+                {
+                    productUrl: '/some/other/category/product.html',
+                    categoryId: '02',
+                    categoryUrl: '/some/other/category.html'
+                }
+            ];
+            
+            it('should return product URL', function () {
+                expect(product.getUrl()).toBe('/some/category/product.html');
             });
 
-            it('should return fallback url', function () {
-                productConfig.useShopUrls = false;
-                expect(product.getOriginFullUrl()).toBe(product.urlKey);
+            it('should return product URL corresponding to a given category URL', function () {
+                expect(product.getUrl('/some/other/category.html')).toBe('/some/other/category/product.html');
             });
         });
 

@@ -14,6 +14,7 @@ sofa.define('sofa.models.Product', function (config) {
 });
 
 /**
+ * @deprecated use getUrl()
  * @method getOriginFullUrl
  * @memberof sofa.models.Product
  *
@@ -25,7 +26,32 @@ sofa.define('sofa.models.Product', function (config) {
  * @return {string} the URL of the resource
  */
 sofa.models.Product.prototype.getOriginFullUrl = function () {
-    return this._config.useShopUrls ? this.originFullUrl : this.urlKey;
+    return this.getUrl();
+};
+
+/**
+ * @method getUrl
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Gets the product URL. If a product has more than one URL,
+ * the suitable one can be received by passing in the category's URL as a parameter.
+ *
+ * @param {string} categoryUrl optional category URL to distinguish the
+ * correct product URL from the routes object.
+ *
+ * @returns {string} The product's URL
+ */
+sofa.models.Product.prototype.getUrl = function (categoryUrl) {
+    var routeObj = this.routes[0];
+
+    if (categoryUrl) {
+        routeObj = sofa.Util.find(this.routes, function (route) {
+            return route.categoryUrl === categoryUrl;
+        });
+    }
+
+    return routeObj.productUrl;
 };
 
 /**
@@ -41,6 +67,7 @@ sofa.models.Product.prototype.getOriginFullUrl = function () {
  *
  * @return {string} Image url.
  */
+// TODO: this one seems to be deprecated since sizes are handled by the imageResizer now.
 sofa.models.Product.prototype.getImage = function (size) {
     for (var i = 0; i < this.images.length; i++) {
         if (this.images[i].sizeName && this.images[i].sizeName.toLowerCase() === size) {
@@ -84,17 +111,12 @@ sofa.models.Product.prototype.getMainImage = function () {
  * @memberof sofa.models.Product
  *
  * @description
- * Returns all images of the product in size 'large'.
+ * Returns all images of the product.
  *
  * @return {array} Array of image urls.
  */
 sofa.models.Product.prototype.getAllImages = function () {
-
-    if (!this._allImages) {
-        this._allImages = [{ url: this.getImage('large') }].concat(this.imagesAlt);
-    }
-
-    return this._allImages;
+    return this.images;
 };
 
 /**
@@ -121,6 +143,7 @@ sofa.models.Product.prototype.hasMultipleImages = function () {
  *
  * @return {boolean}
  */
+// TODO: this method seems to be deprecated. There's no property "custom1" on products anymore
 sofa.models.Product.prototype.hasBasePrice = function () {
     return this.custom1 > 0;
 };
@@ -137,6 +160,7 @@ sofa.models.Product.prototype.hasBasePrice = function () {
  *
  * @return {Number}
  */
+// TODO: this method seems to be deprecated. There's no property "custom1" on products anymore
 sofa.models.Product.prototype.getBasePriceStr = function (variant) {
     var base = this.custom1;
     if (variant && variant.unitAmount) {
@@ -155,6 +179,7 @@ sofa.models.Product.prototype.getBasePriceStr = function (variant) {
  *
  * @return {boolean}
  */
+// TODO: this method seems to be deprecated. There's no property "custom3" on products anymore
 sofa.models.Product.prototype.hasUnit = function () {
     return sofa.Util.isString(this.custom3) && this.custom3.length > 0;
 };
@@ -169,6 +194,7 @@ sofa.models.Product.prototype.hasUnit = function () {
  *
  * @return {String}
  */
+// TODO: this method seems to be deprecated. There's no property "custom3" on products anymore
 sofa.models.Product.prototype.getUnit = function () {
     return this.custom3;
 };
@@ -183,6 +209,7 @@ sofa.models.Product.prototype.getUnit = function () {
  *
  * @return {boolean}
  */
+// TODO: this method seems to be deprecated. Price properties have changed. Refactor to hasSpecialPrice()
 sofa.models.Product.prototype.hasOldPrice = function () {
     return sofa.Util.isNumeric(this.priceOld) && this.priceOld > 0;
 };
@@ -272,4 +299,46 @@ sofa.models.Product.prototype.areAllVariantsOutOfStock = function () {
  */
 sofa.models.Product.prototype.hasAttributes = function () {
     return this.attributes && Object.keys(this.attributes).length > 0;
+};
+
+/**
+ * @sofadoc method
+ * @name sofa.models.Product#getPrice
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the default product price
+ *
+ * @return {Number}
+ */
+sofa.models.Product.prototype.getPrice = function () {
+    return this.price.normal;
+};
+
+/**
+ * @sofadoc method
+ * @name sofa.models.Product#getSpecialPrice
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the special product price
+ *
+ * @return {Number}
+ */
+sofa.models.Product.prototype.getSpecialPrice = function () {
+    return this.price.special;
+};
+
+/**
+ * @sofadoc method
+ * @name sofa.models.Product#getVat
+ * @memberof sofa.models.Product
+ *
+ * @description
+ * Returns the product vat
+ *
+ * @return {Number}
+ */
+sofa.models.Product.prototype.getVat = function () {
+    return this.taxPercent;
 };

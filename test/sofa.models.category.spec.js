@@ -14,20 +14,15 @@ describe('sofa.core', function () {
             expect(category).toBeDefined();
         });
 
-        describe('sofa.models.Product#getOriginFullUrl', function () {
-            var category = new sofa.models.Category(sofa.Config);
-            category.originFullUrl = 'full/url';
-            category.urlId = 'full-url';
+        describe('sofa.models.Category#getUrl', function () {
+            var category = new sofa.models.Category({});
 
-            it('should return full url', function () {
-                sofa.Config.useShopUrls = true;
-                expect(category.getOriginFullUrl()).toBe(category.originFullUrl);
-            });
+            category.route = '/some/category.html';
 
-            it('should return fallback url', function () {
-                sofa.Config.useShopUrls = false;
-                expect(category.getOriginFullUrl()).toBe(category.urlId);
+            it('should return the category\'s URL', function () {
+                expect(category.getUrl()).toBe('/some/category.html');
             });
         });
+
     });
 });
