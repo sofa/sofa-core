@@ -1,5 +1,5 @@
 /**
- * sofa-core - v0.14.2 - Thu Feb 12 2015 09:49:49 GMT+0100 (CET)
+ * sofa-core - v0.14.2 - Mon Feb 23 2015 11:58:34 GMT+0100 (CET)
  * http://www.sofa.io
  *
  * Copyright (c) 2014 CouchCommerce GmbH (http://www.couchcommerce.com / http://www.sofa.io) and other contributors
@@ -282,6 +282,31 @@ sofa.define('sofa.ConfigService', function () {
         }
 
         return value;
+    };
+
+    /**
+     * @sofadoc method
+     * @name sofa.ConfigService#set
+     * @memberof sofa.ConfigService
+     *
+     * @description
+     * Generic setter function that sets a config value for a given key.
+     *
+     * ```js
+     * configService.set('foo', 'bar');
+     * ```
+     *
+     * If no configuration exists this method will throw an Exception.
+     *
+     * @param {string} key Key for a certain config value.
+     * @param {object} value to be set
+     */
+    self.set = function (key, value) {
+        if (!sofa.Config) {
+            throw new Error('sofa.Config not available');
+        }
+
+        sofa.Config[key] = value;
     };
 
     return self;
