@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "gulp": "^3.8.10",
-    "shared-sofa-component-tasks": "^0.9.x"
+    "shared-sofa-component-tasks": "^0.11.x"
   }
 }
