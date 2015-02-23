@@ -1,3 +1,33 @@
+### 0.14.2 (2015-02-23)
+
+
+#### Bug Fixes
+
+* **build:** fixed integration with new build process ([85435581](https://github.com/sofa/sofa-core/commit/854355818c93e683c97f89e124d9b245d506f7f8))
+
+
+#### Features
+
+* **configService:** add set method ([887641c0](https://github.com/sofa/sofa-core/commit/887641c0f1d5cb74b6c698f5e27dc6a56eb85617))
+* **sofa.ConfigService:** adds Angular configService to build ([e677627c](https://github.com/sofa/sofa-core/commit/e677627c36a201018f1f96238b1feb32cff9eb0c))
+* **sofa.core:** integrates new build task ([3860aef6](https://github.com/sofa/sofa-core/commit/3860aef6a26624922741cf12f06d920c7d906451))
+
+
+#### Breaking Changes
+
+* the new build task renames distribution files from dot-case to camel-case.
+
+Before:
+
+`dist/sofa.core.js`
+
+After:
+
+`dist/sofaCore.js`
+
+ ([3860aef6](https://github.com/sofa/sofa-core/commit/3860aef6a26624922741cf12f06d920c7d906451))
+
+
 ### 0.13.2 (2015-02-04)
 
 
