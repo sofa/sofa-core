@@ -6,7 +6,7 @@
         "Pascal Precht <pascal@couchcommerce.com>"
     ],
     "description": "Sofa Web SDK core components.",
-    "main": "dist/sofa.core.js",
+    "main": "dist/sofaCore.js",
     "devDependencies": {
         "sofa-testing": "0.1.x"
     },
