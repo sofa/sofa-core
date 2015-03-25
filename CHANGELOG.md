@@ -1,3 +1,11 @@
+## 0.15.0 (2015-03-25)
+
+
+#### Bug Fixes
+
+* **bower.json:** fixes naming ([210d4b8b](https://github.com/sofa/sofa-core/commit/210d4b8b207b104796aa65711942a506d2b93276))
+
+
 ### 0.14.2 (2015-02-23)
 
 
