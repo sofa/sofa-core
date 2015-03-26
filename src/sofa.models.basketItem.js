@@ -21,6 +21,23 @@ sofa.define('sofa.models.BasketItem', function () {
 
 /**
  * @sofadoc method
+ * @name sofa.models.BasketItem#hasSpecialPrice
+ * @memberof sofa.models.BasketItem
+ *
+ * @description
+ * Returns whether the item has a special price or not.
+ *
+ * @return {boolean}
+ */
+sofa.models.BasketItem.prototype.hasSpecialPrice = function () {
+    var normalPrice = this.variant && this.variant.price.normal || this.product.price.normal;
+    var specialPrice = this.variant && this.variant.price.special || this.product.price.special;
+
+    return specialPrice < normalPrice;
+};
+
+/**
+ * @sofadoc method
  * @name sofa.models.BasketItem#getPrice
  * @memberof sofa.models.BasketItem
  *
@@ -30,7 +47,21 @@ sofa.define('sofa.models.BasketItem', function () {
  * @return {float} Price
  */
 sofa.models.BasketItem.prototype.getPrice = function () {
-    return this.variant && sofa.Util.isNumeric(this.variant.price) ? this.variant.price : this.product.price;
+    return this.variant && sofa.Util.isNumeric(this.variant.price.normal) ? this.variant.price.normal : this.product.price.normal;
+};
+
+/**
+ * @sofadoc method
+ * @name sofa.models.BasketItem#getSpecialPrice
+ * @memberof sofa.models.BasketItem
+ *
+ * @description
+ * Returns the special price of the basket item depending on the variant.
+ *
+ * @return {float} Special Price
+ */
+sofa.models.BasketItem.prototype.getSpecialPrice = function () {
+    return this.variant && sofa.Util.isNumeric(this.variant.price.special) ? this.variant.price.special : this.product.price.special;
 };
 
 /**
@@ -43,8 +74,11 @@ sofa.models.BasketItem.prototype.getPrice = function () {
  *
  * @return {float} Total price
  */
+// TODO: actually, the getSpecialPrice method could be used solely since the API always sets specialPrice (at least to equal normalPrice)
 sofa.models.BasketItem.prototype.getTotal = function () {
-    return sofa.Util.round(this.quantity * this.getPrice(), 2);
+    var getPriceFn = (this.hasSpecialPrice() ? this.getSpecialPrice : this.getPrice).bind(this);
+
+    return sofa.Util.round(this.quantity * getPriceFn(), 2);
 };
 
 /**
