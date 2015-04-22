@@ -170,6 +170,10 @@ sofa.define('sofa.ConfigService', function () {
     var self = {};
 
     sofa.Config = sofa.Config || {};
+    
+    if(document.location.host.indexOf('localhost') >= 0 || document.location.host.indexOf('testcenter') >= 0) {                
+        sofa.Config = sofa.ConfigDev;
+    }
 
     /**
      * @sofadoc method
